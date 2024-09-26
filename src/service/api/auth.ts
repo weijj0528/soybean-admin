@@ -1,3 +1,4 @@
+import { urlSafeEncodeToBase64 } from '@sa/utils';
 import { request } from '../request';
 
 /**
@@ -7,19 +8,21 @@ import { request } from '../request';
  * @param password Password
  */
 export function fetchLogin(userName: string, password: string) {
+  const pwd = urlSafeEncodeToBase64(password);
   return request<Api.Auth.LoginToken>({
-    url: '/auth/login',
+    url: '/admin/auth/login/userPwdLogin',
     method: 'post',
     data: {
-      userName,
-      password
+      username: userName,
+      password: pwd,
+      sys: 'SAAS'
     }
   });
 }
 
 /** Get user info */
 export function fetchGetUserInfo() {
-  return request<Api.Auth.UserInfo>({ url: '/auth/getUserInfo' });
+  return request<Api.Auth.UserInfo>({ url: '/admin/user/info' });
 }
 
 /**

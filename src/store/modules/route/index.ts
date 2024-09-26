@@ -80,6 +80,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   const removeRouteFns: (() => void)[] = [];
 
+  /** Global modules */
+  const modules = ref<App.Global.Menu[]>([]);
   /** Global menus */
   const menus = ref<App.Global.Menu[]>([]);
   const searchMenus = computed(() => transformMenuToSearchMenus(menus.value));
@@ -357,6 +359,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   return {
     resetStore,
     routeHome,
+    modules,
     menus,
     searchMenus,
     updateGlobalMenusByLocale,

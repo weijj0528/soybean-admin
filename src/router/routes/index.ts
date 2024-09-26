@@ -57,6 +57,7 @@ const customRoutes: CustomRoute[] = [
     path: '/document',
     component: 'layout.base',
     meta: {
+      constant: true,
       title: 'document',
       i18nKey: 'route.document',
       order: 2,
