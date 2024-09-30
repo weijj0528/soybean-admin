@@ -9,10 +9,15 @@ export const enableStatusOptions = transformRecordToOption(enableStatusRecord);
 
 export const userGenderRecord: Record<Api.SystemManage.UserGender, App.I18n.I18nKey> = {
   '1': 'page.manage.user.gender.male',
-  '2': 'page.manage.user.gender.female'
+  '0': 'page.manage.user.gender.female'
 };
 
 export const userGenderOptions = transformRecordToOption(userGenderRecord);
+
+export const freezeStatusRecord: Record<Api.SystemManage.FreezeStatus, App.I18n.I18nKey> = {
+  '0': 'page.manage.common.status.enable',
+  '1': 'page.manage.common.status.disable'
+};
 
 export const menuTypeRecord: Record<Api.SystemManage.MenuType, App.I18n.I18nKey> = {
   '1': 'page.manage.menu.type.directory',

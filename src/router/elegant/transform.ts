@@ -197,6 +197,7 @@ const routeMap: RouteMap = {
   "manage_role": "/manage/role",
   "manage_user": "/manage/user",
   "manage_user-detail": "/manage/user-detail/:id",
+  "manage_user-center": "/manage/user-center",
   "multi-menu": "/multi-menu",
   "multi-menu_first": "/multi-menu/first",
   "multi-menu_first_child": "/multi-menu/first/child",
@@ -220,8 +221,7 @@ const routeMap: RouteMap = {
   "plugin_print": "/plugin/print",
   "plugin_swiper": "/plugin/swiper",
   "plugin_typeit": "/plugin/typeit",
-  "plugin_video": "/plugin/video",
-  "user-center": "/user-center"
+  "plugin_video": "/plugin/video"
 };
 
 /**

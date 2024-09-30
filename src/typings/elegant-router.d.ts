@@ -51,6 +51,7 @@ declare module "@elegant-router/types" {
     "manage_role": "/manage/role";
     "manage_user": "/manage/user";
     "manage_user-detail": "/manage/user-detail/:id";
+    "manage_user-center": "/manage/user-center";
     "multi-menu": "/multi-menu";
     "multi-menu_first": "/multi-menu/first";
     "multi-menu_first_child": "/multi-menu/first/child";
@@ -75,7 +76,6 @@ declare module "@elegant-router/types" {
     "plugin_swiper": "/plugin/swiper";
     "plugin_typeit": "/plugin/typeit";
     "plugin_video": "/plugin/video";
-    "user-center": "/user-center";
   };
 
   /**
@@ -130,7 +130,6 @@ declare module "@elegant-router/types" {
     | "manage"
     | "multi-menu"
     | "plugin"
-    | "user-center"
   >;
 
   /**
@@ -185,7 +184,6 @@ declare module "@elegant-router/types" {
     | "plugin_swiper"
     | "plugin_typeit"
     | "plugin_video"
-    | "user-center"
   >;
 
   /**
@@ -267,7 +265,7 @@ declare module "@elegant-router/types" {
         component: `view.${K}`;
       }
     : never;
-  
+
   /**
    * the center level route
    */
@@ -290,7 +288,7 @@ declare module "@elegant-router/types" {
         children: (CenterLevelRoute<GetChildRouteKey<K>> | LastLevelRoute<GetChildRouteKey<K>>)[];
       }
     : never;
-  
+
   /**
    * the custom first level route
    */

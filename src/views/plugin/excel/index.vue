@@ -4,7 +4,7 @@ import { utils, writeFile } from 'xlsx';
 import { useAppStore } from '@/store/modules/app';
 import { useTable } from '@/hooks/common/table';
 import { fetchGetUserList } from '@/service/api';
-import { enableStatusRecord, userGenderRecord } from '@/constants/business';
+import { freezeStatusRecord, userGenderRecord } from '@/constants/business';
 import { $t } from '@/locales';
 
 const appStore = useAppStore();
@@ -13,16 +13,16 @@ const { columns, data, loading } = useTable({
   apiFn: fetchGetUserList,
   showTotal: true,
   apiParams: {
-    current: 1,
-    size: 999,
+    page: 1,
+    size: 10,
     // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
     // the value can not be undefined, otherwise the property in Form will not be reactive
-    status: null,
-    userName: null,
-    userGender: null,
-    nickName: null,
-    userPhone: null,
-    userEmail: null
+    freeze: null,
+    name: null,
+    gender: null,
+    nickname: null,
+    phone: null,
+    email: null
   },
   columns: () => [
     {
@@ -31,73 +31,73 @@ const { columns, data, loading } = useTable({
       width: 48
     },
     {
-      key: 'index',
+      key: 'id',
       title: $t('common.index'),
       align: 'center',
       width: 64
     },
     {
-      key: 'userName',
-      title: $t('page.manage.user.userName'),
+      key: 'name',
+      title: $t('page.manage.user.username'),
       align: 'center',
       minWidth: 100
     },
     {
-      key: 'userGender',
+      key: 'gender',
       title: $t('page.manage.user.userGender'),
       align: 'center',
       width: 100,
       render: row => {
-        if (row.userGender === null) {
+        if (row.gender === null) {
           return null;
         }
 
         const tagMap: Record<Api.SystemManage.UserGender, NaiveUI.ThemeColor> = {
           1: 'primary',
-          2: 'error'
+          0: 'error'
         };
 
-        const label = $t(userGenderRecord[row.userGender]);
+        const label = $t(userGenderRecord[row.gender]);
 
-        return <NTag type={tagMap[row.userGender]}>{label}</NTag>;
+        return <NTag type={tagMap[row.gender]}>{label}</NTag>;
       }
     },
     {
-      key: 'nickName',
+      key: 'nickname',
       title: $t('page.manage.user.nickName'),
       align: 'center',
       minWidth: 100
     },
     {
-      key: 'userPhone',
+      key: 'phone',
       title: $t('page.manage.user.userPhone'),
       align: 'center',
       width: 120
     },
     {
-      key: 'userEmail',
+      key: 'email',
       title: $t('page.manage.user.userEmail'),
       align: 'center',
       minWidth: 200
     },
     {
-      key: 'status',
+      key: 'freeze',
       title: $t('page.manage.user.userStatus'),
       align: 'center',
       width: 100,
       render: row => {
-        if (row.status === null) {
+        if (row.freeze === null) {
           return null;
         }
 
-        const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
-          1: 'success',
-          2: 'warning'
+        const tagMap: Record<Api.SystemManage.FreezeStatus, NaiveUI.ThemeColor> = {
+          0: 'success',
+          1: 'warning'
         };
 
-        const label = $t(enableStatusRecord[row.status]);
+        const label = $t(freezeStatusRecord[row.freeze]);
 
-        return <NTag type={tagMap[row.status]}>{label}</NTag>;
+        return <NTag type={tagMap[row.freeze]}>{label}</NTag>;
       }
     }
   ]
@@ -139,16 +139,12 @@ function getTableValue(
     return null;
   }
 
-  if (key === 'userRoles') {
-    return item.userRoles.map(role => role).join(',');
+  if (key === 'freeze') {
+    return (item.freeze && $t(freezeStatusRecord[item.freeze])) || null;
   }
 
-  if (key === 'status') {
-    return (item.status && $t(enableStatusRecord[item.status])) || null;
-  }
-
-  if (key === 'userGender') {
-    return (item.userGender && $t(userGenderRecord[item.userGender])) || null;
+  if (key === 'gender') {
+    return (item.gender && $t(userGenderRecord[item.gender])) || null;
   }
 
   return item[key];

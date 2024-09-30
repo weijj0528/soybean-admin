@@ -7,8 +7,8 @@ declare namespace Api {
   namespace Common {
     /** common params of paginating */
     interface PaginatingCommonParams {
-      /** current page number */
-      current: number;
+      /** page number */
+      page: number;
       /** page size */
       size: number;
       /** total count */
@@ -17,7 +17,7 @@ declare namespace Api {
 
     /** common params of paginating query list data */
     interface PaginatingQueryRecord<T = any> extends PaginatingCommonParams {
-      records: T[];
+      list: T[];
     }
 
     /**
@@ -28,20 +28,32 @@ declare namespace Api {
      */
     type EnableStatus = '1' | '2';
 
+    /**
+     * delete status
+     *
+     * - "1": deleted
+     * - "0": not deleted
+     */
+    type DeleteStatus = '1' | '0';
+
     /** common record */
     type CommonRecord<T = any> = {
       /** record id */
       id: number;
+      /** tenant id */
+      tenant: number;
+      /** version */
+      version: number;
+      /** version */
+      deleted: DeleteStatus;
       /** record creator */
-      createBy: string;
+      creator: string;
       /** record create time */
-      createTime: string;
+      ctime: string;
       /** record updater */
-      updateBy: string;
+      updater: string;
       /** record update time */
-      updateTime: string;
-      /** record status */
-      status: EnableStatus | null;
+      utime: string;
     } & T;
   }
 
@@ -56,9 +68,9 @@ declare namespace Api {
       refreshToken: string;
     }
 
-    interface UserInfo {
+    interface SystemManage {
       userId: string;
-      userName: string;
+      username: string;
       roles: string[];
       buttons: string[];
     }
@@ -88,61 +100,7 @@ declare namespace Api {
    * backend api module: "systemManage"
    */
   namespace SystemManage {
-    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'current' | 'size'>;
-
-    /** role */
-    type Role = Common.CommonRecord<{
-      /** role name */
-      roleName: string;
-      /** role code */
-      roleCode: string;
-      /** role description */
-      roleDesc: string;
-    }>;
-
-    /** role search params */
-    type RoleSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'status'> & CommonSearchParams
-    >;
-
-    /** role list */
-    type RoleList = Common.PaginatingQueryRecord<Role>;
-
-    /** all role */
-    type AllRole = Pick<Role, 'id' | 'roleName' | 'roleCode'>;
-
-    /**
-     * user gender
-     *
-     * - "1": "male"
-     * - "2": "female"
-     */
-    type UserGender = '1' | '2';
-
-    /** user */
-    type User = Common.CommonRecord<{
-      /** user name */
-      userName: string;
-      /** user gender */
-      userGender: UserGender | null;
-      /** user nick name */
-      nickName: string;
-      /** user phone */
-      userPhone: string;
-      /** user email */
-      userEmail: string;
-      /** user role code collection */
-      userRoles: string[];
-    }>;
-
-    /** user search params */
-    type UserSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.User, 'userName' | 'userGender' | 'nickName' | 'userPhone' | 'userEmail' | 'status'> &
-        CommonSearchParams
-    >;
-
-    /** user list */
-    type UserList = Common.PaginatingQueryRecord<User>;
+    type CommonSearchParams = Pick<Common.PaginatingCommonParams, 'page' | 'size'>;
 
     /**
      * menu type
@@ -186,6 +144,8 @@ declare namespace Api {
     >;
 
     type Menu = Common.CommonRecord<{
+      /** status */
+      status: Common.EnableStatus | null;
       /** parent menu id */
       parentId: number;
       /** menu type */
@@ -218,5 +178,67 @@ declare namespace Api {
       pId: number;
       children?: MenuTree[];
     };
+    /** role */
+    type Role = Common.CommonRecord<{
+      /** status */
+      status: Common.EnableStatus | null;
+      /** role name */
+      roleName: string;
+      /** role code */
+      roleCode: string;
+      /** role description */
+      roleDesc: string;
+    }>;
+
+    /** role search params */
+    type RoleSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.Role, 'status' | 'roleName' | 'roleCode'> & CommonSearchParams
+    >;
+
+    /** role list */
+    type RoleList = Common.PaginatingQueryRecord<Role>;
+
+    /** all role */
+    type AllRole = Pick<Role, 'id' | 'status' | 'roleName' | 'roleCode'>;
+    /**
+     * user gender
+     *
+     * - "1": "male"
+     * - "2": "female"
+     */
+    type UserGender = '1' | '0';
+
+    /**
+     * freeze status
+     *
+     * - "1": "freeze"
+     * - "0": "normal"
+     */
+    type FreezeStatus = '1' | '0';
+
+    /** user */
+    type User = Common.CommonRecord<{
+      /** user name */
+      name: string;
+      /** user gender */
+      gender: UserGender | null;
+      /** user nick name */
+      nickname: string;
+      /** user phone */
+      phone: string;
+      /** user email */
+      email: string;
+      /** freeze status */
+      freeze: FreezeStatus | null;
+    }>;
+
+    /** user search params */
+    type UserSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.User, 'name' | 'gender' | 'nickname' | 'phone' | 'email' | 'freeze'> &
+        SystemManage.CommonSearchParams
+    >;
+
+    /** user list */
+    type UserList = Common.PaginatingQueryRecord<User>;
   }
 }

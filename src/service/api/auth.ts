@@ -4,16 +4,16 @@ import { request } from '../request';
 /**
  * Login
  *
- * @param userName User name
+ * @param username User name
  * @param password Password
  */
-export function fetchLogin(userName: string, password: string) {
+export function fetchLogin(username: string, password: string) {
   const pwd = urlSafeEncodeToBase64(password);
   return request<Api.Auth.LoginToken>({
     url: '/admin/auth/login/userPwdLogin',
     method: 'post',
     data: {
-      username: userName,
+      username,
       password: pwd,
       sys: 'SAAS'
     }
@@ -22,7 +22,7 @@ export function fetchLogin(userName: string, password: string) {
 
 /** Get user info */
 export function fetchGetUserInfo() {
-  return request<Api.Auth.UserInfo>({ url: '/admin/user/info' });
+  return request<Api.Auth.SystemManage>({ url: '/admin/user/info' });
 }
 
 /**
