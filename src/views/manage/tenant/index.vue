@@ -1,12 +1,12 @@
 <script setup lang="tsx">
-import { NButton, NPopconfirm } from 'naive-ui';
-import { fetchGetRoleList } from '@/service/api';
+import { NButton } from 'naive-ui';
+import { fetchGetTenantList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
 // import { enableStatusRecord } from '@/constants/business';
-import RoleOperateDrawer from './modules/role-operate-drawer.vue';
-import RoleSearch from './modules/role-search.vue';
+import TenantOperateDrawer from './modules/tenant-operate-drawer.vue';
+import TenantSearch from './modules/tenant-search.vue';
 
 const appStore = useAppStore();
 
@@ -21,15 +21,15 @@ const {
   searchParams,
   resetSearchParams
 } = useTable({
-  apiFn: fetchGetRoleList,
+  apiFn: fetchGetTenantList,
   apiParams: {
     page: 1,
     size: 10,
     // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
     // the value can not be undefined, otherwise the property in Form will not be reactive
-    // status: null,
     name: null,
-    code: null
+    code: null,
+    sysCode: null
   },
   columns: () => [
     {
@@ -45,24 +45,30 @@ const {
     },
     {
       key: 'name',
-      title: $t('page.manage.role.roleName'),
+      title: $t('page.manage.tenant.name'),
       align: 'center',
       minWidth: 120
     },
     {
       key: 'code',
-      title: $t('page.manage.role.roleCode'),
+      title: $t('page.manage.tenant.code'),
+      align: 'center',
+      minWidth: 120
+    },
+    {
+      key: 'sysCode',
+      title: $t('page.manage.tenant.sysCode'),
       align: 'center',
       minWidth: 120
     },
     {
       key: 'remark',
-      title: $t('page.manage.role.roleDesc'),
+      title: $t('page.manage.tenant.desc'),
       minWidth: 120
     },
     /* {
       key: 'status',
-      title: $t('page.manage.role.roleStatus'),
+      title: $t('page.manage.tenant.status'),
       align: 'center',
       width: 100,
       render: row => {
@@ -84,13 +90,16 @@ const {
       key: 'operate',
       title: $t('common.operate'),
       align: 'center',
-      width: 130,
+      width: 160,
       render: row => (
         <div class="flex-center gap-8px">
           <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
             {$t('common.edit')}
           </NButton>
-          <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
+          <NButton type="warning" ghost size="small" onClick={() => editAdmin(row.id)}>
+            {$t('page.manage.tenant.editAdmin')}
+          </NButton>
+          {/* <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
             {{
               default: () => $t('common.confirmDelete'),
               trigger: () => (
@@ -99,7 +108,7 @@ const {
                 </NButton>
               )
             }}
-          </NPopconfirm>
+          </NPopconfirm> */}
         </div>
       )
     }
@@ -113,8 +122,8 @@ const {
   handleAdd,
   handleEdit,
   checkedRowKeys,
-  onBatchDeleted,
-  onDeleted
+  onBatchDeleted
+  // onDeleted
   // closeDrawer
 } = useTableOperate(data, getData);
 
@@ -125,26 +134,31 @@ async function handleBatchDelete() {
   onBatchDeleted();
 }
 
-function handleDelete(id: number) {
-  // request
-  console.log(id);
+// function handleDelete(id: number) {
+//   // request
+//   console.log(id);
 
-  onDeleted();
-}
+//   onDeleted();
+// }
 
 function edit(id: number) {
   handleEdit(id);
+}
+
+function editAdmin(id: number) {
+  console.log('editAdmin', id);
 }
 </script>
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <RoleSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :title="$t('page.manage.role.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+    <TenantSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
+    <NCard :title="$t('page.manage.tenant.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <template #header-extra>
         <TableHeaderOperation
           v-model:columns="columnChecks"
-          :disabled-delete="checkedRowKeys.length === 0"
+          :display-delete="false"
+          :disabled-delete="true"
           :loading="loading"
           @add="handleAdd"
           @delete="handleBatchDelete"
@@ -164,7 +178,7 @@ function edit(id: number) {
         :pagination="mobilePagination"
         class="sm:h-full"
       />
-      <RoleOperateDrawer
+      <TenantOperateDrawer
         v-model:visible="drawerVisible"
         :operate-type="operateType"
         :row-data="editingData"

@@ -179,6 +179,7 @@ const local: App.I18n.Schema = {
     'manage_user-detail': 'User Detail',
     'manage_user-center': 'User Center',
     manage_role: 'Role Manage',
+    manage_tenant: 'Tenant Manage',
     manage_menu: 'Menu Manage',
     'multi-menu': 'Multi Menu',
     'multi-menu_first': 'Menu One',
@@ -360,6 +361,26 @@ const local: App.I18n.Schema = {
         },
         addRole: 'Add Role',
         editRole: 'Edit Role'
+      },
+      tenant: {
+        title: 'Tenant List',
+        name: 'Tenant Name',
+        code: 'Tenant Code',
+        sysCode: 'Tenant type',
+        status: 'Tenant Status',
+        desc: 'Tenant Description',
+        menuAuth: 'Menu Auth',
+        buttonAuth: 'Button Auth',
+        form: {
+          name: 'Please enter tenant name',
+          code: 'Please enter tenant code',
+          sysCode: 'Please enter sys code',
+          status: 'Please select tenant status',
+          desc: 'Please enter tenant description'
+        },
+        addTenant: 'Add Tenant',
+        editTenant: 'Edit Tenant',
+        editAdmin: 'Set Tenant Admin'
       },
       user: {
         title: 'User List',

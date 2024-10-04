@@ -1,8 +1,8 @@
-import { ref, toValue } from 'vue';
-import type { ComputedRef, Ref } from 'vue';
 import type { FormInst } from 'naive-ui';
-import { REG_CODE_SIX, REG_EMAIL, REG_PHONE, REG_PWD, REG_USER_NAME } from '@/constants/reg';
+import type { ComputedRef, Ref } from 'vue';
+import { ref, toValue } from 'vue';
 import { $t } from '@/locales';
+import { REG_CODE_SIX, REG_EMAIL, REG_PHONE, REG_PWD, REG_USER_NAME } from '@/constants/reg';
 
 export function useFormRules() {
   const patternRules = {
@@ -51,6 +51,14 @@ export function useFormRules() {
     };
   }
 
+  const defaultOptionalRule = createOptionalRule();
+
+  function createOptionalRule(): App.Global.FormRule {
+    return {
+      required: false
+    };
+  }
+
   /** create a rule for confirming the password */
   function createConfirmPwdRule(pwd: string | Ref<string> | ComputedRef<string>) {
     const confirmPwdRule: App.Global.FormRule[] = [
@@ -73,6 +81,7 @@ export function useFormRules() {
     patternRules,
     formRules,
     defaultRequiredRule,
+    defaultOptionalRule,
     createRequiredRule,
     createConfirmPwdRule
   };

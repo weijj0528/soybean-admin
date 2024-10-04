@@ -179,6 +179,7 @@ const local: App.I18n.Schema = {
     'manage_user-detail': '用户详情',
     'manage_user-center': '用户中心',
     manage_role: '角色管理',
+    manage_tenant: '租户管理',
     manage_menu: '菜单管理',
     'multi-menu': '多级菜单',
     'multi-menu_first': '菜单一',
@@ -360,6 +361,26 @@ const local: App.I18n.Schema = {
         },
         addRole: '新增角色',
         editRole: '编辑角色'
+      },
+      tenant: {
+        title: '租户列表',
+        name: '租户名称',
+        code: '租户编码',
+        sysCode: '租户类型',
+        status: '租户状态',
+        desc: '租户描述',
+        menuAuth: '菜单权限',
+        buttonAuth: '按钮权限',
+        form: {
+          name: '请输入租户名称',
+          code: '请输入租户编码',
+          sysCode: '请选择租户类型',
+          status: '请选择租户状态',
+          desc: '请输入租户描述'
+        },
+        addTenant: '新增租户',
+        editTenant: '编辑租户',
+        editAdmin: '管理员设置'
       },
       user: {
         title: '用户列表',

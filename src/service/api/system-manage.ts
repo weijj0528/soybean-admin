@@ -3,7 +3,7 @@ import { request } from '../request';
 /** get role list */
 export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams) {
   return request<Api.SystemManage.RoleList>({
-    url: '/systemManage/getRoleList',
+    url: '/admin/sysRole',
     method: 'get',
     params
   });
@@ -18,6 +18,31 @@ export function fetchGetAllRoles() {
   return request<Api.SystemManage.AllRole[]>({
     url: '/systemManage/getAllRoles',
     method: 'get'
+  });
+}
+
+/** get tenant list */
+export function fetchGetTenantList(params?: Api.SystemManage.TenantSearchParams) {
+  return request<Api.SystemManage.TenantList>({
+    url: '/admin/tenant',
+    method: 'get',
+    params
+  });
+}
+/** add new tenant */
+export function fetchAddTenant(data?: Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'remark'>) {
+  return request<Api.SystemManage.Tenant>({
+    url: '/admin/tenant',
+    method: 'post',
+    data
+  });
+}
+/** add new tenant */
+export function fetchUpdateTenant(id?: number, data?: Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'remark'>) {
+  return request<Api.SystemManage.Tenant>({
+    url: `/admin/tenant/${id}`,
+    method: 'post',
+    data
   });
 }
 

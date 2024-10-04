@@ -212,8 +212,7 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: 'manage',
       i18nKey: 'route.manage',
       icon: 'carbon:cloud-service-management',
-      order: 9,
-      // roles: ['R_ADMIN']
+      order: 9
     },
     children: [
       {
@@ -225,7 +224,6 @@ export const generatedRoutes: GeneratedRoute[] = [
           i18nKey: 'route.manage_menu',
           icon: 'material-symbols:route',
           order: 3,
-          // roles: ['R_ADMIN'],
           keepAlive: true
         }
       },
@@ -237,8 +235,16 @@ export const generatedRoutes: GeneratedRoute[] = [
           title: 'manage_role',
           i18nKey: 'route.manage_role',
           icon: 'carbon:user-role',
-          order: 2,
-          // roles: ['R_SUPER']
+          order: 2
+        }
+      },
+      {
+        name: 'manage_tenant',
+        path: '/manage/tenant',
+        component: 'view.manage_tenant',
+        meta: {
+          title: 'manage_tenant',
+          i18nKey: 'route.manage_tenant'
         }
       },
       {
@@ -249,8 +255,19 @@ export const generatedRoutes: GeneratedRoute[] = [
           title: 'manage_user',
           i18nKey: 'route.manage_user',
           icon: 'ic:round-manage-accounts',
-          order: 1,
-          // roles: ['R_ADMIN']
+          order: 1
+        }
+      },
+      {
+        name: 'manage_user-center',
+        path: '/manage/user-center',
+        component: 'view.manage_user-center',
+        children: [],
+        meta: {
+          title: 'manage_user-center',
+          i18nKey: 'route.manage_user-center',
+          hideInMenu: true,
+          activeMenu: 'manage_user'
         }
       },
       {
@@ -261,19 +278,6 @@ export const generatedRoutes: GeneratedRoute[] = [
         meta: {
           title: 'manage_user-detail',
           i18nKey: 'route.manage_user-detail',
-          hideInMenu: true,
-          // roles: ['R_ADMIN'],
-          activeMenu: 'manage_user'
-        }
-      },
-      {
-        name: 'manage_user-center',
-        path: '/manage/user-center',
-        component: 'view.manage_user-center',
-        children:[],
-        meta: {
-          title: 'manage_user-center',
-          i18nKey: 'route.manage_user-center',
           hideInMenu: true,
           activeMenu: 'manage_user'
         }

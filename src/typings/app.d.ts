@@ -547,6 +547,26 @@ declare namespace App {
             menuAuth: string;
             buttonAuth: string;
           };
+          tenant: {
+            title: string;
+            name: string;
+            code: string;
+            sysCode: string;
+            status: string;
+            desc: string;
+            form: {
+              name: string;
+              code: string;
+              sysCode: string;
+              status: string;
+              desc: string;
+            };
+            addTenant: string;
+            editTenant: string;
+            menuAuth: string;
+            buttonAuth: string;
+            editAdmin: string;
+          };
           user: {
             title: string;
             username: string;

@@ -183,23 +183,51 @@ declare namespace Api {
       /** status */
       status: Common.EnableStatus | null;
       /** role name */
-      roleName: string;
+      name: string;
       /** role code */
-      roleCode: string;
+      code: string;
+      /** role code */
+      type: string;
       /** role description */
-      roleDesc: string;
+      remark: string;
     }>;
 
     /** role search params */
     type RoleSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.Role, 'status' | 'roleName' | 'roleCode'> & CommonSearchParams
+      Pick<Api.SystemManage.Role, 'status' | 'name' | 'code' | 'type'> & CommonSearchParams
     >;
 
     /** role list */
     type RoleList = Common.PaginatingQueryRecord<Role>;
 
     /** all role */
-    type AllRole = Pick<Role, 'id' | 'status' | 'roleName' | 'roleCode'>;
+    type AllRole = Pick<Role, 'id' | 'status' | 'name' | 'code' | 'type'>;
+
+    /** tenant */
+    type Tenant = Common.CommonRecord<{
+      /** status */
+      status: Common.EnableStatus | null;
+      /** tenant name */
+      name: string;
+      /** tenant code */
+      code: string;
+      /** sys code */
+      sysCode: string;
+      /** tenant description */
+      remark: string;
+      /** tenant description */
+      adminUser: string;
+      /** tenant description */
+      adminName: string;
+    }>;
+
+    /** tenant list */
+    type TenantList = Common.PaginatingQueryRecord<Tenant>;
+
+    /** tenant search params */
+    type TenantSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.Tenant, 'status' | 'name' | 'code' | 'sysCode'> & CommonSearchParams
+    >;
     /**
      * user gender
      *
