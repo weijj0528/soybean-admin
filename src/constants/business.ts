@@ -20,15 +20,17 @@ export const freezeStatusRecord: Record<Api.SystemManage.FreezeStatus, App.I18n.
 };
 
 export const menuTypeRecord: Record<Api.SystemManage.MenuType, App.I18n.I18nKey> = {
-  '1': 'page.manage.menu.type.directory',
-  '2': 'page.manage.menu.type.menu'
+  MODULE: 'page.manage.menu.type.module',
+  GROUP: 'page.manage.menu.type.group',
+  PAGE: 'page.manage.menu.type.page',
+  FUNC: 'page.manage.menu.type.func'
 };
 
 export const menuTypeOptions = transformRecordToOption(menuTypeRecord);
 
 export const menuIconTypeRecord: Record<Api.SystemManage.IconType, App.I18n.I18nKey> = {
-  '1': 'page.manage.menu.iconType.iconify',
-  '2': 'page.manage.menu.iconType.local'
+  '1': 'page.manage.menu.iconType.local',
+  '2': 'page.manage.menu.iconType.iconify'
 };
 
 export const menuIconTypeOptions = transformRecordToOption(menuIconTypeRecord);

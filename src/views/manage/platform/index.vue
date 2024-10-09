@@ -1,12 +1,12 @@
 <script setup lang="tsx">
 import { NButton } from 'naive-ui';
-import { fetchGetTenantList } from '@/service/api';
+import { fetchGetPlatformList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
 // import { enableStatusRecord } from '@/constants/business';
-import TenantOperateDrawer from './modules/tenant-operate-drawer.vue';
-import TenantSearch from './modules/tenant-search.vue';
+// import TenantOperateDrawer from './modules/tenant-operate-drawer.vue';
+// import TenantSearch from './modules/tenant-search.vue';
 
 const appStore = useAppStore();
 
@@ -17,19 +17,18 @@ const {
   loading,
   getData,
   getDataByPage,
-  mobilePagination,
-  searchParams,
-  resetSearchParams
+  mobilePagination
+  // searchParams,
+  // resetSearchParams
 } = useTable({
-  apiFn: fetchGetTenantList,
+  apiFn: fetchGetPlatformList,
   apiParams: {
     page: 1,
     size: 10,
     // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
     // the value can not be undefined, otherwise the property in Form will not be reactive
     name: null,
-    code: null,
-    platform: null
+    code: null
   },
   columns: () => [
     {
@@ -45,47 +44,21 @@ const {
     },
     {
       key: 'code',
-      title: $t('page.manage.tenant.code'),
+      title: $t('page.manage.platform.code'),
       align: 'center',
-      width: 120
-    },
-    {
-      key: 'platform',
-      title: $t('page.manage.tenant.platform'),
-      align: 'center',
-      width: 120
+      minWidth: 120
     },
     {
       key: 'name',
-      title: $t('page.manage.tenant.name'),
+      title: $t('page.manage.platform.name'),
       align: 'center',
       minWidth: 120
     },
     {
       key: 'remark',
-      title: $t('page.manage.tenant.desc'),
-      minWidth: 160
+      title: $t('page.manage.platform.remark'),
+      minWidth: 120
     },
-    /* {
-      key: 'status',
-      title: $t('page.manage.tenant.status'),
-      align: 'center',
-      width: 100,
-      render: row => {
-        if (row.status === null) {
-          return null;
-        }
-
-        const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
-          1: 'success',
-          2: 'warning'
-        };
-
-        const label = $t(enableStatusRecord[row.status]);
-
-        return <NTag type={tagMap[row.status]}>{label}</NTag>;
-      }
-    }, */
     {
       key: 'operate',
       title: $t('common.operate'),
@@ -95,9 +68,6 @@ const {
         <div class="flex-center gap-8px">
           <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
             {$t('common.edit')}
-          </NButton>
-          <NButton type="warning" ghost size="small" onClick={() => editAdmin(row.id)}>
-            {$t('page.manage.tenant.editAdmin')}
           </NButton>
           {/* <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
             {{
@@ -145,15 +115,20 @@ function edit(id: number) {
   handleEdit(id);
 }
 
-function editAdmin(id: number) {
-  console.log('editAdmin', id);
-}
+// function editAdmin(id: number) {
+//   console.log('editAdmin', id);
+// }
 </script>
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <TenantSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
-    <NCard :title="$t('page.manage.tenant.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
+    <!-- <TenantSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" /> -->
+    <NCard
+      :title="$t('page.manage.platform.title')"
+      :bordered="false"
+      size="small"
+      class="sm:flex-1-hidden card-wrapper"
+    >
       <template #header-extra>
         <TableHeaderOperation
           v-model:columns="columnChecks"

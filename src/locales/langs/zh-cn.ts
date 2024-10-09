@@ -180,6 +180,8 @@ const local: App.I18n.Schema = {
     'manage_user-center': '用户中心',
     manage_role: '角色管理',
     manage_tenant: '租户管理',
+    manage_platform: '平台管理',
+    manage_api: '接口管理',
     manage_menu: '菜单管理',
     'multi-menu': '多级菜单',
     'multi-menu_first': '菜单一',
@@ -366,7 +368,7 @@ const local: App.I18n.Schema = {
         title: '租户列表',
         name: '租户名称',
         code: '租户编码',
-        sysCode: '租户类型',
+        platform: '租户平台',
         status: '租户状态',
         desc: '租户描述',
         menuAuth: '菜单权限',
@@ -374,13 +376,39 @@ const local: App.I18n.Schema = {
         form: {
           name: '请输入租户名称',
           code: '请输入租户编码',
-          sysCode: '请选择租户类型',
+          platform: '请选择租户平台',
           status: '请选择租户状态',
           desc: '请输入租户描述'
         },
         addTenant: '新增租户',
         editTenant: '编辑租户',
         editAdmin: '管理员设置'
+      },
+      platform: {
+        title: '平台列表',
+        name: '平台名称',
+        code: '平台编码',
+        remark: '平台描述',
+        form: {
+          name: '请输入平台名称',
+          code: '请输入平台编码',
+          remark: '请输入平台描述'
+        },
+        addPlatform: '新增平台',
+        editPlatform: '编辑平台'
+      },
+      api: {
+        title: '接口列表',
+        name: '接口名称',
+        path: '接口地址',
+        remark: '接口描述',
+        form: {
+          name: '请输入接口名称',
+          path: '请输入接口地址',
+          remark: '请输入接口描述'
+        },
+        addApi: '新增接口',
+        editApi: '编辑接口'
       },
       user: {
         title: '用户列表',
@@ -419,7 +447,7 @@ const local: App.I18n.Schema = {
         pathParam: '路径参数',
         layout: '布局',
         page: '页面组件',
-        i18nKey: '国际化key',
+        i18nKey: '国际化KEY',
         icon: '图标',
         localIcon: '本地图标',
         iconTypeTitle: '图标类型',
@@ -467,8 +495,10 @@ const local: App.I18n.Schema = {
         editMenu: '编辑菜单',
         addChildMenu: '新增子菜单',
         type: {
-          directory: '目录',
-          menu: '菜单'
+          module: '模块',
+          group: '分组',
+          page: '页面',
+          func: '功能'
         },
         iconType: {
           iconify: 'iconify图标',

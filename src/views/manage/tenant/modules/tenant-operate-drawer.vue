@@ -43,7 +43,7 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'sysCode' | 'remark'>;
+type Model = Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'platform' | 'remark'>;
 
 const model: Model = reactive(createDefaultModel());
 
@@ -51,7 +51,7 @@ function createDefaultModel(): Model {
   return {
     name: '',
     code: '',
-    sysCode: '',
+    platform: '',
     remark: ''
   };
 }
@@ -61,7 +61,7 @@ type RuleKey = Exclude<keyof Model, 'roleDesc'>;
 const rules: Record<RuleKey, App.Global.FormRule> = {
   name: defaultRequiredRule,
   code: defaultOptionalRule,
-  sysCode: defaultRequiredRule,
+  platform: defaultRequiredRule,
   remark: defaultRequiredRule
 };
 
@@ -69,7 +69,7 @@ const roleId = computed(() => props.rowData?.id || -1);
 
 const isEdit = computed(() => props.operateType === 'edit');
 
-const sysList = [
+const platformList = [
   {
     name: 'SAAS管理',
     code: 'SAAS'
@@ -137,13 +137,13 @@ watch(visible, () => {
         <NFormItem :label="$t('page.manage.tenant.code')" path="code">
           <NInput v-model:value="model.code" :placeholder="$t('page.manage.tenant.form.code')" :disabled="isEdit" />
         </NFormItem>
-        <NFormItem :label="$t('page.manage.tenant.sysCode')" path="sysCode">
+        <NFormItem :label="$t('page.manage.tenant.platform')" path="platform">
           <NSelect
-            v-model:value="model.sysCode"
-            :placeholder="$t('page.manage.tenant.form.sysCode')"
+            v-model:value="model.platform"
+            :placeholder="$t('page.manage.tenant.form.platform')"
             label-field="name"
             value-field="code"
-            :options="sysList"
+            :options="platformList"
             :disabled="isEdit"
           ></NSelect>
         </NFormItem>

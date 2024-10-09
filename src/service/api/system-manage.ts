@@ -1,9 +1,96 @@
 import { request } from '../request';
 
+/** get sys api list */
+export function fetchGetSysApiList(params?: Api.SystemManage.SysApiSearchParams) {
+  return request<Api.SystemManage.SysApiList>({
+    url: '/admin/sys/api',
+    method: 'get',
+    params
+  });
+}
+/** add new sys api */
+export function fetchAddSysApi(data?: Pick<Api.SystemManage.SysApi, 'name' | 'module' | 'path' | 'remark'>) {
+  return request<Api.SystemManage.SysApi>({
+    url: '/admin/sys/api',
+    method: 'post',
+    data
+  });
+}
+/** update sys api */
+export function fetchUpdateSysApi(
+  id?: number,
+  data?: Pick<Api.SystemManage.SysApi, 'name' | 'module' | 'path' | 'remark'>
+) {
+  return request<Api.SystemManage.SysApi>({
+    url: `/admin/sys/api/${id}`,
+    method: 'post',
+    data
+  });
+}
+
+/** get platform list */
+export function fetchGetPlatformList(params?: Api.SystemManage.PlatformSearchParams) {
+  return request<Api.SystemManage.PlatformList>({
+    url: '/admin/sys/platform',
+    method: 'get',
+    params
+  });
+}
+/** add new platform */
+export function fetchAddPlatform(data?: Pick<Api.SystemManage.Platform, 'name' | 'code' | 'remark'>) {
+  return request<Api.SystemManage.Platform>({
+    url: '/admin/sys/platform',
+    method: 'post',
+    data
+  });
+}
+/** update platform */
+export function fetchUpdatePlatform(id?: number, data?: Pick<Api.SystemManage.Platform, 'name' | 'code' | 'remark'>) {
+  return request<Api.SystemManage.Platform>({
+    url: `/admin/sys/platform/${id}`,
+    method: 'post',
+    data
+  });
+}
+
+/** get tenant list */
+export function fetchGetTenantList(params?: Api.SystemManage.TenantSearchParams) {
+  return request<Api.SystemManage.TenantList>({
+    url: '/admin/sys/tenant',
+    method: 'get',
+    params
+  });
+}
+/** add new tenant */
+export function fetchAddTenant(data?: Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'remark'>) {
+  return request<Api.SystemManage.Tenant>({
+    url: '/admin/sys/tenant',
+    method: 'post',
+    data
+  });
+}
+/** update tenant */
+export function fetchUpdateTenant(id?: number, data?: Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'remark'>) {
+  return request<Api.SystemManage.Tenant>({
+    url: `/admin/sys/tenant/${id}`,
+    method: 'post',
+    data
+  });
+}
+
+/** get user list */
+export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
+  return request<Api.SystemManage.UserList>({
+    url: '/admin/user/info',
+    method: 'get',
+    params
+  });
+}
+
 /** get role list */
 export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams) {
   return request<Api.SystemManage.RoleList>({
-    url: '/admin/sysRole',
+    url: '/admin/sys/role',
     method: 'get',
     params
   });
@@ -21,45 +108,29 @@ export function fetchGetAllRoles() {
   });
 }
 
-/** get tenant list */
-export function fetchGetTenantList(params?: Api.SystemManage.TenantSearchParams) {
-  return request<Api.SystemManage.TenantList>({
-    url: '/admin/tenant',
-    method: 'get',
-    params
-  });
-}
-/** add new tenant */
-export function fetchAddTenant(data?: Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'remark'>) {
-  return request<Api.SystemManage.Tenant>({
-    url: '/admin/tenant',
-    method: 'post',
-    data
-  });
-}
-/** add new tenant */
-export function fetchUpdateTenant(id?: number, data?: Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'remark'>) {
-  return request<Api.SystemManage.Tenant>({
-    url: `/admin/tenant/${id}`,
-    method: 'post',
-    data
-  });
-}
-
-/** get user list */
-export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
-  return request<Api.SystemManage.UserList>({
-    url: '/admin/user',
-    method: 'get',
-    params
-  });
-}
-
 /** get menu list */
 export function fetchGetMenuList() {
   return request<Api.SystemManage.MenuList>({
-    url: '/systemManage/getMenuList/v2',
+    url: '/admin/sys/menu/all',
     method: 'get'
+  });
+}
+
+/** add menu */
+export function fetchAddMenu(data: Api.SystemManage.MenuEditModel) {
+  return request<Api.SystemManage.Menu>({
+    url: '/admin/sys/menu',
+    method: 'post',
+    data
+  });
+}
+
+/** update menu */
+export function fetchUpdateMenu(id: number, data: Api.SystemManage.MenuEditModel) {
+  return request<Api.SystemManage.Menu>({
+    url: `/admin/sys/menu/${id}`,
+    method: 'post',
+    data
   });
 }
 
@@ -74,7 +145,7 @@ export function fetchGetAllPages() {
 /** get menu tree */
 export function fetchGetMenuTree() {
   return request<Api.SystemManage.MenuTree[]>({
-    url: '/systemManage/getMenuTree',
+    url: '/admin/sys/menu/tree',
     method: 'get'
   });
 }

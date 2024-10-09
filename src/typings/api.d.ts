@@ -105,10 +105,12 @@ declare namespace Api {
     /**
      * menu type
      *
-     * - "1": directory
-     * - "2": menu
+     * - "MODULE": 模块
+     * - "GROUP": 分组
+     * - "PAGE": 页面
+     * - "FUNC": 功能
      */
-    type MenuType = '1' | '2';
+    type MenuType = 'MODULE' | 'GROUP' | 'PAGE' | 'FUNC';
 
     type MenuButton = {
       /**
@@ -124,8 +126,8 @@ declare namespace Api {
     /**
      * icon type
      *
-     * - "1": iconify icon
-     * - "2": local icon
+     * - '1': local icon
+     * - '2': iconify icon
      */
     type IconType = '1' | '2';
 
@@ -142,28 +144,34 @@ declare namespace Api {
       | 'fixedIndexInTab'
       | 'query'
     >;
-
+    /* 菜单 */
     type Menu = Common.CommonRecord<{
-      /** status */
-      status: Common.EnableStatus | null;
       /** parent menu id */
-      parentId: number;
+      parent: number;
       /** menu type */
-      menuType: MenuType;
+      type: MenuType;
       /** menu name */
-      menuName: string;
+      name: string;
+      /** menu code */
+      code: string;
       /** route name */
       routeName: string;
       /** route path */
       routePath: string;
+      /** route params */
+      routeParams: any[];
+      /** path params */
+      pathParams: string;
+      /** layout */
+      layout?: string;
       /** component */
       component?: string;
       /** iconify icon name or local icon name */
       icon: string;
-      /** icon type */
+      /** iconify icon or local icon */
       iconType: IconType;
-      /** buttons */
-      buttons?: MenuButton[] | null;
+      /** menu sort */
+      sort: number;
       /** children menu */
       children?: Menu[] | null;
     }> &
@@ -172,10 +180,41 @@ declare namespace Api {
     /** menu list */
     type MenuList = Common.PaginatingQueryRecord<Menu>;
 
+    /** menu edit model */
+    type MenuEditModel = Pick<
+      Menu,
+      | 'type'
+      | 'name'
+      | 'code'
+      | 'routeName'
+      | 'routePath'
+      | 'routeParams'
+      | 'pathParams'
+      | 'layout'
+      | 'component'
+      | 'sort'
+      | 'i18nKey'
+      | 'icon'
+      | 'iconType'
+      | 'parent'
+      // | 'keepAlive'
+      // | 'constant'
+      // | 'href'
+      // | 'hideInMenu'
+      // | 'activeMenu'
+      // | 'multiTab'
+      // | 'fixedIndexInTab'
+    > & {
+      // query: NonNullable<Api.SystemManage.Menu['routeParams']>;
+      layout: string;
+      page: string;
+      // pathParam: string;
+    };
+
     type MenuTree = {
       id: number;
-      label: string;
-      pId: number;
+      name: string;
+      parent: number;
       children?: MenuTree[];
     };
     /** role */
@@ -203,6 +242,44 @@ declare namespace Api {
     /** all role */
     type AllRole = Pick<Role, 'id' | 'status' | 'name' | 'code' | 'type'>;
 
+    /** platform */
+    type SysApi = Common.CommonRecord<{
+      /** api name */
+      name: string;
+      /** api module */
+      module: string;
+      /** api path */
+      path: string;
+      /** api description */
+      remark: string;
+    }>;
+
+    /** platform list */
+    type SysApiList = Common.PaginatingQueryRecord<SysApi>;
+
+    /** platform search params */
+    type SysApiSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.SysApi, 'name' | 'module' | 'path'> & CommonSearchParams
+    >;
+
+    /** platform */
+    type Platform = Common.CommonRecord<{
+      /** platform name */
+      name: string;
+      /** platform code */
+      code: string;
+      /** platform description */
+      remark: string;
+    }>;
+
+    /** platform list */
+    type PlatformList = Common.PaginatingQueryRecord<Platform>;
+
+    /** platform search params */
+    type PlatformSearchParams = CommonType.RecordNullable<
+      Pick<Api.SystemManage.Platform, 'name' | 'code'> & CommonSearchParams
+    >;
+
     /** tenant */
     type Tenant = Common.CommonRecord<{
       /** status */
@@ -212,7 +289,7 @@ declare namespace Api {
       /** tenant code */
       code: string;
       /** sys code */
-      sysCode: string;
+      platform: string;
       /** tenant description */
       remark: string;
       /** tenant description */
@@ -226,7 +303,7 @@ declare namespace Api {
 
     /** tenant search params */
     type TenantSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.Tenant, 'status' | 'name' | 'code' | 'sysCode'> & CommonSearchParams
+      Pick<Api.SystemManage.Tenant, 'status' | 'name' | 'code' | 'platform'> & CommonSearchParams
     >;
     /**
      * user gender

@@ -216,6 +216,15 @@ export const generatedRoutes: GeneratedRoute[] = [
     },
     children: [
       {
+        name: 'manage_api',
+        path: '/manage/api',
+        component: 'view.manage_api',
+        meta: {
+          title: 'manage_api',
+          i18nKey: 'route.manage_api'
+        }
+      },
+      {
         name: 'manage_menu',
         path: '/manage/menu',
         component: 'view.manage_menu',
@@ -225,6 +234,15 @@ export const generatedRoutes: GeneratedRoute[] = [
           icon: 'material-symbols:route',
           order: 3,
           keepAlive: true
+        }
+      },
+      {
+        name: 'manage_platform',
+        path: '/manage/platform',
+        component: 'view.manage_platform',
+        meta: {
+          title: 'manage_platform',
+          i18nKey: 'route.manage_platform'
         }
       },
       {

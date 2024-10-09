@@ -22,7 +22,7 @@ export function fetchLogin(username: string, password: string) {
 
 /** Get user info */
 export function fetchGetUserInfo() {
-  return request<Api.Auth.SystemManage>({ url: '/admin/user/info' });
+  return request<Api.Auth.SystemManage>({ url: '/admin/user/info/by-token' });
 }
 
 /**

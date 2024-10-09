@@ -551,13 +551,13 @@ declare namespace App {
             title: string;
             name: string;
             code: string;
-            sysCode: string;
+            platform: string;
             status: string;
             desc: string;
             form: {
               name: string;
               code: string;
-              sysCode: string;
+              platform: string;
               status: string;
               desc: string;
             };
@@ -566,6 +566,32 @@ declare namespace App {
             menuAuth: string;
             buttonAuth: string;
             editAdmin: string;
+          };
+          platform: {
+            title: string;
+            name: string;
+            code: string;
+            remark: string;
+            form: {
+              name: string;
+              code: string;
+              remark: string;
+            };
+            addPlatform: string;
+            editPlatform: string;
+          };
+          api: {
+            title: string;
+            name: string;
+            path: string;
+            remark: string;
+            form: {
+              name: string;
+              path: string;
+              remark: string;
+            };
+            addApi: string;
+            editApi: string;
           };
           user: {
             title: string;
@@ -652,8 +678,10 @@ declare namespace App {
             editMenu: string;
             addChildMenu: string;
             type: {
-              directory: string;
-              menu: string;
+              module: string;
+              group: string;
+              page: string;
+              func: string;
             };
             iconType: {
               iconify: string;

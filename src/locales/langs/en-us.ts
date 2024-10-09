@@ -180,6 +180,8 @@ const local: App.I18n.Schema = {
     'manage_user-center': 'User Center',
     manage_role: 'Role Manage',
     manage_tenant: 'Tenant Manage',
+    manage_platform: 'Platform Manage',
+    manage_api: 'Api Manage',
     manage_menu: 'Menu Manage',
     'multi-menu': 'Multi Menu',
     'multi-menu_first': 'Menu One',
@@ -366,7 +368,7 @@ const local: App.I18n.Schema = {
         title: 'Tenant List',
         name: 'Tenant Name',
         code: 'Tenant Code',
-        sysCode: 'Tenant type',
+        platform: 'Tenant platform',
         status: 'Tenant Status',
         desc: 'Tenant Description',
         menuAuth: 'Menu Auth',
@@ -374,13 +376,39 @@ const local: App.I18n.Schema = {
         form: {
           name: 'Please enter tenant name',
           code: 'Please enter tenant code',
-          sysCode: 'Please enter sys code',
+          platform: 'Please enter platform',
           status: 'Please select tenant status',
           desc: 'Please enter tenant description'
         },
         addTenant: 'Add Tenant',
         editTenant: 'Edit Tenant',
         editAdmin: 'Set Tenant Admin'
+      },
+      platform: {
+        title: 'Platform List',
+        name: 'Platform Name',
+        code: 'Platform Code',
+        remark: 'Platform Description',
+        form: {
+          name: 'Please enter platform name',
+          code: 'Please enter platform code',
+          remark: 'Please enter platform description'
+        },
+        addPlatform: 'Add Platform',
+        editPlatform: 'Edit Platform'
+      },
+      api: {
+        title: 'Api List',
+        name: 'Api Name',
+        path: 'Api oath',
+        remark: 'Api Description',
+        form: {
+          name: 'Please enter api name',
+          path: 'Please enter api path',
+          remark: 'Please enter api description'
+        },
+        addApi: 'Add Api',
+        editApi: 'Edit Api'
       },
       user: {
         title: 'User List',
@@ -467,8 +495,10 @@ const local: App.I18n.Schema = {
         editMenu: 'Edit Menu',
         addChildMenu: 'Add Child Menu',
         type: {
-          directory: 'Directory',
-          menu: 'Menu'
+          module: 'Directory',
+          group: 'Group',
+          page: 'Page',
+          func: 'Func'
         },
         iconType: {
           iconify: 'Iconify Icon',
