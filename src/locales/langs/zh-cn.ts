@@ -148,6 +148,10 @@ const local: App.I18n.Schema = {
       resetSuccessMsg: '重置成功'
     }
   },
+  module: {
+    system: '系统',
+    demo: '演示'
+  },
   route: {
     login: '登录',
     403: '无权限',

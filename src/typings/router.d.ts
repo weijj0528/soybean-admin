@@ -14,6 +14,10 @@ declare module 'vue-router' {
      * It's used in i18n, if it is set, the title will be ignored
      */
     i18nKey?: App.I18n.I18nKey | null;
+    /*
+     * Module of the route
+     */
+    module?: string | null;
     /**
      * Roles of the route
      *

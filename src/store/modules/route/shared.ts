@@ -62,6 +62,45 @@ export function sortRoutesByOrder(routes: ElegantConstRoute[]) {
 
   return routes;
 }
+/**
+ * Get global modules by auth routes
+ *
+ * @param routes Auth routes
+ */
+export function getGlobalModulesByCustomModules(modules: App.Global.Module[]) {
+  const menus: App.Global.Menu[] = [];
+
+  modules.forEach(module => {
+    const menu = getGlobalMenuByCustomModule(module);
+    menus.push(menu);
+  });
+
+  return menus;
+}
+
+/**
+ * Filter auth routes by roles
+ *
+ * @param routes Auth routes
+ * @param roles Roles
+ */
+export function filterRoutesByModule(routes: ElegantConstRoute[], module: App.Global.Module) {
+  return routes.flatMap(route => filterRouteByModule(route, module));
+}
+
+/**
+ * Filter route by module
+ *
+ * @param route Auth route
+ * @param module Module
+ */
+function filterRouteByModule(route: ElegantConstRoute, module: App.Global.Module) {
+  const routeModule = route.meta?.module || '';
+
+  const filterRoute = { ...route };
+
+  return routeModule === 'ALL' || routeModule === module.name ? [filterRoute] : [];
+}
 
 /**
  * Get global menus by auth routes
@@ -112,6 +151,31 @@ export function updateLocaleOfGlobalMenus(menus: App.Global.Menu[]) {
   });
 
   return result;
+}
+
+/**
+ * Get global menu by module
+ *
+ * @param route
+ */
+function getGlobalMenuByCustomModule(module: App.Global.Module) {
+  const { SvgIconVNode } = useSvgIcon();
+
+  const { name } = module;
+  const { title, i18nKey, icon = import.meta.env.VITE_MENU_ICON, localIcon, iconFontSize } = module ?? {};
+
+  const label = i18nKey ? $t(i18nKey) : title!;
+
+  const menu: App.Global.Menu = {
+    key: name as string,
+    label,
+    i18nKey,
+    routeKey: '404',
+    routePath: '/404',
+    icon: SvgIconVNode({ icon, localIcon, fontSize: iconFontSize || 20 })
+  };
+
+  return menu;
 }
 
 /**

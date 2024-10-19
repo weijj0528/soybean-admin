@@ -5,7 +5,7 @@ import { useBoolean } from '@sa/hooks';
 import type { CustomRoute, ElegantConstRoute, LastLevelRouteKey, RouteKey, RouteMap } from '@elegant-router/types';
 import { SetupStoreId } from '@/enum';
 import { router } from '@/router';
-import { createStaticRoutes, getAuthVueRoutes } from '@/router/routes';
+import { createStaticModules, createStaticRoutes, getAuthVueRoutes } from '@/router/routes';
 import { ROOT_ROUTE } from '@/router/routes/builtin';
 import { getRouteName, getRoutePath } from '@/router/elegant/transform';
 import { fetchGetConstantRoutes, fetchGetUserRoutes, fetchIsRouteExist } from '@/service/api';
@@ -14,9 +14,11 @@ import { useAuthStore } from '../auth';
 import { useTabStore } from '../tab';
 import {
   filterAuthRoutesByRoles,
+  filterRoutesByModule,
   getBreadcrumbsByRoute,
   getCacheRouteNames,
   getGlobalMenusByAuthRoutes,
+  getGlobalModulesByCustomModules,
   getSelectedMenuKeyPathByKey,
   isRouteExistByRouteName,
   sortRoutesByOrder,
@@ -80,8 +82,59 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
   const removeRouteFns: (() => void)[] = [];
 
+  /** constant modules */
+  const constantModules = shallowRef<App.Global.Module[]>([]);
+
+  function addConstantModules(modules: App.Global.Module[]) {
+    const constantModulesMap = new Map<string, App.Global.Module>([]);
+
+    modules.forEach(module => {
+      constantModulesMap.set(module.name, module);
+    });
+
+    constantModules.value = Array.from(constantModulesMap.values());
+  }
+
+  /** auth modules */
+  const authModules = shallowRef<App.Global.Module[]>([]);
+
+  function addAuthModules(modules: App.Global.Module[]) {
+    const authModulesMap = new Map<string, App.Global.Module>([]);
+
+    modules.forEach(module => {
+      authModulesMap.set(module.name, module);
+    });
+
+    authModules.value = Array.from(authModulesMap.values());
+  }
   /** Global modules */
   const modules = ref<App.Global.Menu[]>([]);
+
+  const currentModule = ref<App.Global.Module>();
+  /** Set global modules */
+  function setGlobalModules(moduleArray: App.Global.Module[]) {
+    modules.value = getGlobalModulesByCustomModules(moduleArray);
+    setCurrentModule(moduleArray[0]);
+  }
+
+  function setCurrentModule(module: App.Global.Module) {
+    currentModule.value = module;
+    const allRoutes = [...constantRoutes.value, ...authRoutes.value];
+
+    const sortRoutes = sortRoutesByOrder(allRoutes);
+
+    const moduleRoutes = filterRoutesByModule(sortRoutes, module);
+
+    getGlobalMenus(moduleRoutes);
+  }
+
+  function setCurrentModuleName(name: string) {
+    const allModules = [...authModules.value, ...constantModules.value];
+    const module = allModules.filter(m => m.name === name);
+    if (module.length === 0) return;
+    setCurrentModule(module[0]);
+  }
+
   /** Global menus */
   const menus = ref<App.Global.Menu[]>([]);
   const searchMenus = computed(() => transformMenuToSearchMenus(menus.value));
@@ -200,16 +253,21 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
     const staticRoute = createStaticRoutes();
 
+    const staticModules = createStaticModules();
+
     if (authRouteMode.value === 'static') {
       addConstantRoutes(staticRoute.constantRoutes);
+      addConstantModules(staticModules.constantModules);
     } else {
       const { data, error } = await fetchGetConstantRoutes();
 
       if (!error) {
         addConstantRoutes(data);
+        // addConstantModules([]);
       } else {
         // if fetch constant routes failed, use static constant routes
         addConstantRoutes(staticRoute.constantRoutes);
+        addConstantModules(staticModules.constantModules);
       }
     }
 
@@ -232,13 +290,16 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   /** Init static auth route */
   function initStaticAuthRoute() {
     const { authRoutes: staticAuthRoutes } = createStaticRoutes();
+    const { authModules: staticAuthModules } = createStaticModules();
 
     if (authStore.isStaticSuper) {
       addAuthRoutes(staticAuthRoutes);
+      addAuthModules(staticAuthModules);
     } else {
       const filteredAuthRoutes = filterAuthRoutesByRoles(staticAuthRoutes, authStore.userInfo.roles);
 
       addAuthRoutes(filteredAuthRoutes);
+      addAuthModules(staticAuthModules);
     }
 
     handleConstantAndAuthRoutes();
@@ -280,9 +341,13 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
 
     addRoutesToVueRouter(vueRoutes);
 
-    getGlobalMenus(sortRoutes);
+    // getGlobalMenus(sortRoutes);
 
     getCacheRoutes(vueRoutes);
+
+    const allModules = [...authModules.value, ...constantModules.value];
+
+    setGlobalModules(allModules);
   }
 
   /**
@@ -360,6 +425,8 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
     resetStore,
     routeHome,
     modules,
+    currentModule,
+    setCurrentModuleName,
     menus,
     searchMenus,
     updateGlobalMenusByLocale,

@@ -178,6 +178,32 @@ declare namespace App {
       showMenu?: boolean;
     }
 
+    type Module = {
+      name: string;
+      /** The module titel */
+      title: string;
+      /** The module i18n key */
+      i18nKey?: I18n.I18nKey | null;
+      /**
+       * Iconify icon
+       *
+       * It can be used in the menu or breadcrumb
+       */
+      icon?: string;
+      /**
+       * Local icon
+       *
+       * In "src/assets/svg-icon", if it is set, the icon will be ignored
+       */
+      localIcon?: string;
+      /** Icon size. width and height are the same. */
+      iconFontSize?: number;
+      /** Router order */
+      order?: number | null;
+      /** The module constant */
+      constant?: true | false;
+    };
+
     /** The global menu */
     type Menu = {
       /**
@@ -396,6 +422,10 @@ declare namespace App {
         };
       };
       route: Record<I18nRouteKey, string>;
+      module: {
+        demo: string;
+        system: string;
+      };
       page: {
         login: {
           common: {

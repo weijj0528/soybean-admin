@@ -148,6 +148,10 @@ const local: App.I18n.Schema = {
       resetSuccessMsg: 'Reset Success'
     }
   },
+  module: {
+    system: 'System',
+    demo: 'Demo'
+  },
   route: {
     login: 'Login',
     403: 'No Permission',
