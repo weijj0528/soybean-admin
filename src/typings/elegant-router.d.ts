@@ -97,6 +97,7 @@ declare module "@elegant-router/types" {
   export type CustomRouteKey = Extract<
     RouteKey,
     | "root"
+    | "home"
     | "not-found"
     | "exception"
     | "exception_403"
@@ -141,6 +142,7 @@ declare module "@elegant-router/types" {
   export type CustomFirstLevelRouteKey = Extract<
     CustomRouteKey,
     | "root"
+    | "home"
     | "not-found"
     | "exception"
     | "document"
@@ -272,7 +274,7 @@ declare module "@elegant-router/types" {
         component: `view.${K}`;
       }
     : never;
-  
+
   /**
    * the center level route
    */
@@ -295,7 +297,7 @@ declare module "@elegant-router/types" {
         children: (CenterLevelRoute<GetChildRouteKey<K>> | LastLevelRoute<GetChildRouteKey<K>>)[];
       }
     : never;
-  
+
   /**
    * the custom first level route
    */

@@ -38,8 +38,8 @@ const {
       width: 48
     },
     {
-      key: 'index',
-      title: $t('common.index'),
+      key: 'id',
+      title: $t('common.id'),
       width: 64,
       align: 'center'
     },

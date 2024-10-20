@@ -7,6 +7,7 @@ const local: App.I18n.Schema = {
     updateCancel: '稍后再说'
   },
   common: {
+    id: 'ID',
     action: '操作',
     add: '新增',
     addSuccess: '添加成功',
@@ -443,6 +444,7 @@ const local: App.I18n.Schema = {
         home: '首页',
         title: '菜单列表',
         id: 'ID',
+        platform: '平台',
         parentId: '父级菜单ID',
         menuType: '菜单类型',
         menuName: '菜单名称',
@@ -470,6 +472,7 @@ const local: App.I18n.Schema = {
         menuStatus: '菜单状态',
         form: {
           home: '请选择首页',
+          platform: '请选择平台',
           menuType: '请选择菜单类型',
           menuName: '请输入菜单名称',
           routeName: '请输入路由名称',

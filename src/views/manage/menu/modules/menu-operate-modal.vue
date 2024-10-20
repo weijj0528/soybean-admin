@@ -28,6 +28,8 @@ interface Props {
   rowData?: Api.SystemManage.Menu | null;
   /** all pages */
   allPages: string[];
+  /** the platform */
+  platfrom: string;
 }
 
 const props = defineProps<Props>();
@@ -59,6 +61,7 @@ const model: Api.SystemManage.MenuEditModel = reactive(createDefaultModel());
 function createDefaultModel(): Api.SystemManage.MenuEditModel {
   return {
     type: 'MODULE',
+    platform: props.platfrom,
     name: '',
     code: '',
     routeName: '',
@@ -103,7 +106,7 @@ const localIconOptions = localIcons.map<SelectOption>(item => ({
   value: item
 }));
 
-const showLayout = computed(() => model.type === 'PAGE' || model.type === 'GROUP');
+const showLayout = computed(() => model.type === 'GROUP');
 
 const showPage = computed(() => model.type === 'PAGE');
 
@@ -221,7 +224,7 @@ async function handleSubmit() {
   const params = getSubmitParams();
 
   console.log('params: ', params);
-  // Object.assign(model, params);
+  Object.assign(model, params);
 
   // request
   if (props.operateType === 'edit') {

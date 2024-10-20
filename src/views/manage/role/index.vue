@@ -1,7 +1,9 @@
 <script setup lang="tsx">
+import { computed } from 'vue';
 import { NButton, NPopconfirm } from 'naive-ui';
 import { fetchGetRoleList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
+import { useAuthStore } from '@/store/modules/auth';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
 // import { enableStatusRecord } from '@/constants/business';
@@ -9,6 +11,10 @@ import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 import RoleSearch from './modules/role-search.vue';
 
 const appStore = useAppStore();
+
+const { userInfo } = useAuthStore();
+
+const superAdmin = computed(() => userInfo.roles?.includes('SuperAdmin'));
 
 const {
   columns,
@@ -29,7 +35,8 @@ const {
     // the value can not be undefined, otherwise the property in Form will not be reactive
     // status: null,
     name: null,
-    code: null
+    code: null,
+    types: superAdmin.value ? 'SYS,TENANT' : 'ORG'
   },
   columns: () => [
     {
@@ -38,8 +45,8 @@ const {
       width: 48
     },
     {
-      key: 'index',
-      title: $t('common.index'),
+      key: 'id',
+      title: $t('common.id'),
       width: 64,
       align: 'center'
     },

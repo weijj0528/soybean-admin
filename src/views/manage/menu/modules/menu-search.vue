@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { ref } from 'vue';
 import { $t } from '@/locales';
-// import { enableStatusOptions } from '@/constants/business';
-// import { translateOptions } from '@/utils/common';
+import { fetchGetPlatformList } from '@/service/api';
 
 defineOptions({
-  name: 'RoleSearch'
+  name: 'MenuSearch'
 });
 
 interface Emits {
@@ -14,30 +14,50 @@ interface Emits {
 
 const emit = defineEmits<Emits>();
 
-const model = defineModel<Api.SystemManage.RoleSearchParams>('model', { required: true });
+const platform = ref<CommonType.Option[]>([]);
+
+const model = defineModel<Api.SystemManage.MenuSearchParams>('model', { required: true });
 
 function reset() {
+  model.value.platform = 'SAAS';
   emit('reset');
+  search();
 }
 
 function search() {
   emit('search');
 }
+
+function initPlatformSelect() {
+  fetchGetPlatformList().then(res => {
+    const { data } = res;
+    data?.list?.forEach(item => {
+      platform.value.push({
+        value: item.code,
+        label: item.name
+      });
+    });
+  });
+}
+
+initPlatformSelect();
 </script>
 
 <template>
   <NCard :bordered="false" size="small" class="card-wrapper">
-    <NCollapse :default-expanded-names="['role-search']">
-      <NCollapseItem :title="$t('common.search')" name="role-search">
+    <NCollapse :default-expanded-names="['menu-search']">
+      <NCollapseItem :title="$t('common.search')" name="menu-search">
         <NForm :model="model" label-placement="left" :label-width="80">
           <NGrid responsive="screen" item-responsive>
-            <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.role.roleName')" path="roleName" class="pr-24px">
-              <NInput v-model:value="model.name" :placeholder="$t('page.manage.role.form.roleName')" />
+            <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.menu.platform')" path="platform" class="pr-24px">
+              <NSelect
+                v-model:value="model.platform"
+                :placeholder="$t('page.manage.menu.form.platform')"
+                :options="platform"
+                @update:value="search"
+              />
             </NFormItemGi>
-            <NFormItemGi span="24 s:12 m:6" :label="$t('page.manage.role.roleCode')" path="roleCode" class="pr-24px">
-              <NInput v-model:value="model.code" :placeholder="$t('page.manage.role.form.roleCode')" />
-            </NFormItemGi>
-            <NFormItemGi span="24 s:12 m:6">
+            <NFormItemGi span="24 s:12 m:18">
               <NSpace class="w-full" justify="end">
                 <NButton @click="reset">
                   <template #icon>

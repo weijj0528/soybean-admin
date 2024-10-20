@@ -1,14 +1,14 @@
 <script setup lang="ts">
 // import { useBoolean } from '@sa/hooks';
-import { computed, reactive, watch } from 'vue';
+import { computed, reactive, ref, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import { fetchAddTenant, fetchUpdateTenant } from '@/service/api';
+import { fetchAddTenant, fetchGetPlatformList, fetchUpdateTenant } from '@/service/api';
 // import MenuAuthModal from './menu-auth-modal.vue';
 // import ButtonAuthModal from './button-auth-modal.vue';
 
 defineOptions({
-  name: 'RoleOperateDrawer'
+  name: 'TenantOperateDrawer'
 });
 
 interface Props {
@@ -69,28 +69,7 @@ const roleId = computed(() => props.rowData?.id || -1);
 
 const isEdit = computed(() => props.operateType === 'edit');
 
-const platformList = [
-  {
-    name: 'SAAS管理',
-    code: 'SAAS'
-  },
-  {
-    name: '商城系统',
-    code: 'MALL'
-  },
-  {
-    name: '门店系统',
-    code: 'SHOP'
-  },
-  {
-    name: '支付系统',
-    code: 'PAY'
-  },
-  {
-    name: '安全系统',
-    code: 'SECURITY'
-  }
-];
+const platform = ref<CommonType.Option[]>([]);
 function handleInitModel() {
   Object.assign(model, createDefaultModel());
   Object.assign(model, { id: null });
@@ -125,6 +104,19 @@ watch(visible, () => {
     restoreValidation();
   }
 });
+function initPlatformSelect() {
+  fetchGetPlatformList().then(res => {
+    const { data } = res;
+    data?.list?.forEach(item => {
+      platform.value.push({
+        value: item.code,
+        label: item.name
+      });
+    });
+  });
+}
+
+initPlatformSelect();
 </script>
 
 <template>
@@ -141,9 +133,7 @@ watch(visible, () => {
           <NSelect
             v-model:value="model.platform"
             :placeholder="$t('page.manage.tenant.form.platform')"
-            label-field="name"
-            value-field="code"
-            :options="platformList"
+            :options="platform"
             :disabled="isEdit"
           ></NSelect>
         </NFormItem>

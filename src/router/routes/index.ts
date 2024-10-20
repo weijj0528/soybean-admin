@@ -29,6 +29,18 @@ const customModules: App.Global.Module[] = [
  */
 const customRoutes: CustomRoute[] = [
   {
+    name: 'home',
+    path: '/home',
+    component: 'layout.base$view.home',
+    meta: {
+      title: 'home',
+      i18nKey: 'route.home',
+      icon: 'mdi:monitor-dashboard',
+      order: 0,
+      module: 'ALL'
+    }
+  },
+  {
     name: 'exception',
     path: '/exception',
     component: 'layout.base',
@@ -37,6 +49,7 @@ const customRoutes: CustomRoute[] = [
       i18nKey: 'route.exception',
       icon: 'ant-design:exception-outlined',
       order: 7,
+      constant: true,
       module: 'Demo'
     },
     children: [
@@ -77,11 +90,11 @@ const customRoutes: CustomRoute[] = [
     path: '/document',
     component: 'layout.base',
     meta: {
-      constant: true,
       title: 'document',
       i18nKey: 'route.document',
       order: 2,
       icon: 'mdi:file-document-multiple-outline',
+      constant: true,
       module: 'Demo'
     },
     children: [
@@ -211,6 +224,25 @@ export function createStaticRoutes() {
   };
 }
 
+/** create routes when the auth route mode is static */
+export function createCustomRoutes() {
+  const constantRoutes: ElegantRoute[] = [];
+
+  const authRoutes: ElegantRoute[] = [];
+
+  customRoutes.forEach(item => {
+    if (item.meta?.constant) {
+      constantRoutes.push(item);
+    } else {
+      authRoutes.push(item);
+    }
+  });
+
+  return {
+    constantRoutes,
+    authRoutes
+  };
+}
 /**
  * Get auth vue routes
  *

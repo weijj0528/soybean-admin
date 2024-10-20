@@ -7,6 +7,7 @@ const local: App.I18n.Schema = {
     updateCancel: 'Later'
   },
   common: {
+    id: 'ID',
     action: 'Action',
     add: 'Add',
     addSuccess: 'Add Success',
@@ -443,6 +444,7 @@ const local: App.I18n.Schema = {
         home: 'Home',
         title: 'Menu List',
         id: 'ID',
+        platform: 'Platform',
         parentId: 'Parent ID',
         menuType: 'Menu Type',
         menuName: 'Menu Name',
@@ -470,6 +472,7 @@ const local: App.I18n.Schema = {
         menuStatus: 'Menu Status',
         form: {
           home: 'Please select home',
+          platform: 'Please select menu platform',
           menuType: 'Please select menu type',
           menuName: 'Please enter menu name',
           routeName: 'Please enter route name',

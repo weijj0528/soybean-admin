@@ -314,6 +314,7 @@ declare namespace App {
         updateCancel: string;
       };
       common: {
+        id: string;
         action: string;
         add: string;
         addSuccess: string;
@@ -652,6 +653,7 @@ declare namespace App {
             home: string;
             title: string;
             id: string;
+            platform: string;
             parentId: string;
             menuType: string;
             menuName: string;
@@ -679,6 +681,7 @@ declare namespace App {
             menuStatus: string;
             form: {
               home: string;
+              platform: string;
               menuType: string;
               menuName: string;
               routeName: string;

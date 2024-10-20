@@ -15,14 +15,14 @@ export function fetchLogin(username: string, password: string) {
     data: {
       username,
       password: pwd,
-      sys: 'SAAS'
+      platform: 'SAAS'
     }
   });
 }
 
 /** Get user info */
 export function fetchGetUserInfo() {
-  return request<Api.Auth.SystemManage>({ url: '/admin/user/info/by-token' });
+  return request<Api.Auth.SystemManage>({ url: '/admin/auth/userInfo' });
 }
 
 /**

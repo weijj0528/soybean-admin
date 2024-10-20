@@ -78,41 +78,12 @@ export function fetchUpdateTenant(id?: number, data?: Pick<Api.SystemManage.Tena
   });
 }
 
-/** get user list */
-export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
-  return request<Api.SystemManage.UserList>({
-    url: '/admin/user/info',
-    method: 'get',
-    params
-  });
-}
-
-/** get role list */
-export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams) {
-  return request<Api.SystemManage.RoleList>({
-    url: '/admin/sys/role',
-    method: 'get',
-    params
-  });
-}
-
-/**
- * get all roles
- *
- * these roles are all enabled
- */
-export function fetchGetAllRoles() {
-  return request<Api.SystemManage.AllRole[]>({
-    url: '/systemManage/getAllRoles',
-    method: 'get'
-  });
-}
-
 /** get menu list */
-export function fetchGetMenuList() {
+export function fetchGetMenuList(params?: Api.SystemManage.MenuSearchParams) {
   return request<Api.SystemManage.MenuList>({
     url: '/admin/sys/menu/all',
-    method: 'get'
+    method: 'get',
+    params
   });
 }
 
@@ -143,9 +114,68 @@ export function fetchGetAllPages() {
 }
 
 /** get menu tree */
-export function fetchGetMenuTree() {
-  return request<Api.SystemManage.MenuTree[]>({
+export function fetchGetMenuTree(params?: Api.SystemManage.MenuSearchParams) {
+  return request<Api.SystemManage.MenuList>({
     url: '/admin/sys/menu/tree',
+    method: 'get',
+    params
+  });
+}
+
+/** get role menu */
+export function fetchGetRoleMenus(id?: number) {
+  return request<Api.SystemManage.Menu[]>({
+    url: '/admin/sys/role/menus',
+    method: 'get',
+    params: {
+      id
+    }
+  });
+}
+
+/** get role list */
+export function fetchGetRoleList(params?: Api.SystemManage.RoleSearchParams) {
+  return request<Api.SystemManage.RoleList>({
+    url: '/admin/sys/role',
+    method: 'get',
+    params
+  });
+}
+
+/** add role */
+export function fetchAddRole(data: Api.SystemManage.RoleEditModel) {
+  return request<Api.SystemManage.Role>({
+    url: '/admin/sys/role',
+    method: 'post',
+    data
+  });
+}
+/** update role */
+export function fetchUpdateRole(id: number, data: Api.SystemManage.RoleEditModel) {
+  return request<Api.SystemManage.Role>({
+    url: `/admin/sys/role/${id}`,
+    method: 'post',
+    data
+  });
+}
+
+/**
+ * get all roles
+ *
+ * these roles are all enabled
+ */
+export function fetchGetAllRoles() {
+  return request<Api.SystemManage.AllRole[]>({
+    url: '/systemManage/getAllRoles',
     method: 'get'
+  });
+}
+
+/** get user list */
+export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
+  return request<Api.SystemManage.UserList>({
+    url: '/admin/user/info',
+    method: 'get',
+    params
   });
 }

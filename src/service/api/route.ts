@@ -8,7 +8,7 @@ export function fetchGetConstantRoutes() {
 
 /** get user routes */
 export function fetchGetUserRoutes() {
-  return request<Api.Route.UserRoute>({ url: '/route/getUserRoutes' });
+  return request<Api.Route.DynamicRoute[]>({ url: '/admin/auth/permission' });
 }
 
 /**
@@ -17,5 +17,7 @@ export function fetchGetUserRoutes() {
  * @param routeName route name
  */
 export function fetchIsRouteExist(routeName: string) {
-  return request<boolean>({ url: '/route/isRouteExist', params: { routeName } });
+  console.log('fetchIsRouteExist', routeName);
+  return { data: false };
+  // return request<boolean>({ url: '/route/isRouteExist', params: { routeName } });
 }

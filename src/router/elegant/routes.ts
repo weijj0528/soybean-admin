@@ -177,7 +177,7 @@ export const generatedRoutes: GeneratedRoute[] = [
       title: 'home',
       i18nKey: 'route.home',
       icon: 'mdi:monitor-dashboard',
-      order: 1,
+      order: 0,
       module: 'ALL'
     }
   },

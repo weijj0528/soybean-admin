@@ -1,7 +1,7 @@
-import type { RouteLocationNormalizedLoaded, RouteRecordRaw, _RouteRecordBase } from 'vue-router';
 import type { ElegantConstRoute, LastLevelRouteKey, RouteKey, RouteMap } from '@elegant-router/types';
-import { $t } from '@/locales';
+import type { RouteLocationNormalizedLoaded, RouteRecordRaw } from 'vue-router';
 import { useSvgIcon } from '@/hooks/common/icon';
+import { $t } from '@/locales';
 
 /**
  * Filter auth routes by roles
@@ -100,6 +100,70 @@ function filterRouteByModule(route: ElegantConstRoute, module: App.Global.Module
   const filterRoute = { ...route };
 
   return routeModule === 'ALL' || routeModule === module.name ? [filterRoute] : [];
+}
+
+/**
+ * Filter route by module
+ *
+ * @param route Auth route
+ * @param module Module
+ */
+export function dynamicAuthRouteHandle(dynamic: Api.Route.DynamicRoute[]) {
+  const modules = filterModuleFormDynamicAuthRoute(dynamic);
+
+  const moduleRoutes = dynamic.map(route => dynamicAuthRouteConvertMenuRoute(route));
+  const routes = moduleRoutes.flatMap(route => dynamicRouteHandle(route));
+
+  return {
+    dynamicModules: modules,
+    routes
+  };
+}
+
+function filterModuleFormDynamicAuthRoute(dynamic: Api.Route.DynamicRoute[]) {
+  const modules: App.Global.Module[] = [];
+
+  dynamic.forEach(route => {
+    const module: App.Global.Module = {
+      name: route.routeName,
+      title: route.name,
+      i18nKey: route.i18nKey,
+      icon: route.icon,
+      order: route.sort,
+      constant: false
+    };
+
+    modules.push(module);
+  });
+
+  return modules;
+}
+
+function dynamicAuthRouteConvertMenuRoute(dynamic: Api.Route.DynamicRoute) {
+  const route: Api.Route.MenuRoute = {
+    id: String(dynamic.id),
+    name: dynamic.routeName,
+    path: dynamic.routePath,
+    component: dynamic.component,
+    meta: {
+      title: dynamic.name,
+      i18nKey: dynamic.i18nKey,
+      icon: dynamic.icon,
+      order: dynamic.sort
+    },
+    children: dynamic.children?.map(child => dynamicAuthRouteConvertMenuRoute(child))
+  };
+  return route;
+}
+
+function dynamicRouteHandle(route: Api.Route.MenuRoute) {
+  const { name, children } = route;
+  if (children) {
+    children.forEach(element => {
+      element.meta.module = name;
+    });
+  }
+  return children || [];
 }
 
 /**

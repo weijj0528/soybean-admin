@@ -5,8 +5,7 @@ import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
 // import { enableStatusRecord } from '@/constants/business';
-// import TenantOperateDrawer from './modules/tenant-operate-drawer.vue';
-// import TenantSearch from './modules/tenant-search.vue';
+import PlatformOperateDrawer from './modules/platform-operate-drawer.vue';
 
 const appStore = useAppStore();
 
@@ -37,8 +36,8 @@ const {
       width: 48
     },
     {
-      key: 'index',
-      title: $t('common.index'),
+      key: 'id',
+      title: $t('common.id'),
       width: 64,
       align: 'center'
     },
@@ -104,25 +103,13 @@ async function handleBatchDelete() {
   onBatchDeleted();
 }
 
-// function handleDelete(id: number) {
-//   // request
-//   console.log(id);
-
-//   onDeleted();
-// }
-
 function edit(id: number) {
   handleEdit(id);
 }
-
-// function editAdmin(id: number) {
-//   console.log('editAdmin', id);
-// }
 </script>
 
 <template>
   <div class="min-h-500px flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
-    <!-- <TenantSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" /> -->
     <NCard
       :title="$t('page.manage.platform.title')"
       :bordered="false"
@@ -153,7 +140,7 @@ function edit(id: number) {
         :pagination="mobilePagination"
         class="sm:h-full"
       />
-      <TenantOperateDrawer
+      <PlatformOperateDrawer
         v-model:visible="drawerVisible"
         :operate-type="operateType"
         :row-data="editingData"

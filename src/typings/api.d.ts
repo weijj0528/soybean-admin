@@ -92,6 +92,24 @@ declare namespace Api {
       routes: MenuRoute[];
       home: import('@elegant-router/types').LastLevelRouteKey;
     }
+    interface DynamicRoute {
+      id: number;
+      name: string;
+      type: string;
+      code: string;
+      icon: string;
+      iconType: SystemManage.IconType;
+      routeName: string;
+      routePath: string;
+      routeParams: string;
+      pathParams: string;
+      i18nKey?: App.I18n.I18nKey;
+      layout: string;
+      component: string;
+      hide: boolean;
+      sort?: number;
+      children?: DynamicRoute[];
+    }
   }
 
   /**
@@ -146,6 +164,8 @@ declare namespace Api {
     >;
     /* 菜单 */
     type Menu = Common.CommonRecord<{
+      /** menu platform */
+      platform: string;
       /** parent menu id */
       parent: number;
       /** menu type */
@@ -183,6 +203,7 @@ declare namespace Api {
     /** menu edit model */
     type MenuEditModel = Pick<
       Menu,
+      | 'platform'
       | 'type'
       | 'name'
       | 'code'
@@ -217,10 +238,14 @@ declare namespace Api {
       parent: number;
       children?: MenuTree[];
     };
+
+    /** role search params */
+    type MenuSearchParams = CommonType.RecordNullable<Pick<Api.SystemManage.Menu, 'platform'> & CommonSearchParams>;
+
     /** role */
     type Role = Common.CommonRecord<{
-      /** status */
-      status: Common.EnableStatus | null;
+      /** role platform */
+      platform: string;
       /** role name */
       name: string;
       /** role code */
@@ -233,14 +258,21 @@ declare namespace Api {
 
     /** role search params */
     type RoleSearchParams = CommonType.RecordNullable<
-      Pick<Api.SystemManage.Role, 'status' | 'name' | 'code' | 'type'> & CommonSearchParams
+      Pick<Api.SystemManage.Role, 'name' | 'code'> & CommonSearchParams & { types: string }
     >;
 
     /** role list */
     type RoleList = Common.PaginatingQueryRecord<Role>;
 
     /** all role */
-    type AllRole = Pick<Role, 'id' | 'status' | 'name' | 'code' | 'type'>;
+    type AllRole = Pick<Role, 'id' | 'name' | 'code' | 'type'>;
+
+    type RoleEditModel = {
+      name?: string;
+      code?: string;
+      remark?: string;
+      menus?: number[];
+    };
 
     /** platform */
     type SysApi = Common.CommonRecord<{

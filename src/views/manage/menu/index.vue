@@ -1,15 +1,16 @@
 <script setup lang="tsx">
-import { ref } from 'vue';
-import type { Ref } from 'vue';
-import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useBoolean } from '@sa/hooks';
-import { fetchGetMenuList } from '@/service/api';
-import { useAppStore } from '@/store/modules/app';
+import { NButton, NPopconfirm, NTag } from 'naive-ui';
+import type { Ref } from 'vue';
+import { ref } from 'vue';
+import SvgIcon from '@/components/custom/svg-icon.vue';
+import { menuTypeRecord } from '@/constants/business';
+import { yesOrNoRecord } from '@/constants/common';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import { yesOrNoRecord } from '@/constants/common';
-import { menuTypeRecord } from '@/constants/business';
-import SvgIcon from '@/components/custom/svg-icon.vue';
+import { fetchGetMenuList } from '@/service/api';
+import { useAppStore } from '@/store/modules/app';
+import MenuSearch from './modules/menu-search.vue';
 import MenuOperateModal, { type OperateType } from './modules/menu-operate-modal.vue';
 
 const appStore = useAppStore();
@@ -18,8 +19,14 @@ const { bool: visible, setTrue: openModal } = useBoolean();
 
 const wrapperRef = ref<HTMLElement | null>(null);
 
-const { columns, columnChecks, data, loading, getData, getDataByPage } = useTable({
+const { columns, columnChecks, data, loading, getData, getDataByPage, searchParams, resetSearchParams } = useTable({
   apiFn: fetchGetMenuList,
+  apiParams: {
+    // if you want to use the searchParams in Form, you need to define the following properties, and the value is null
+    // the value can not be undefined, otherwise the property in Form will not be reactive
+    // status: null,
+    platform: 'SAAS'
+  },
   columns: () => [
     {
       type: 'selection',
@@ -29,7 +36,8 @@ const { columns, columnChecks, data, loading, getData, getDataByPage } = useTabl
     {
       key: 'id',
       title: $t('page.manage.menu.id'),
-      align: 'center'
+      align: 'center',
+      width: 120
     },
     {
       key: 'type',
@@ -69,7 +77,7 @@ const { columns, columnChecks, data, loading, getData, getDataByPage } = useTabl
     {
       key: 'name',
       title: $t('page.manage.menu.menuName'),
-      align: 'center',
+      align: 'left',
       minWidth: 120,
       render: row => {
         const { i18nKey, name } = row;
@@ -82,13 +90,13 @@ const { columns, columnChecks, data, loading, getData, getDataByPage } = useTabl
     {
       key: 'routeName',
       title: $t('page.manage.menu.routeName'),
-      align: 'center',
+      align: 'left',
       minWidth: 120
     },
     {
       key: 'routePath',
       title: $t('page.manage.menu.routePath'),
-      align: 'center',
+      align: 'left',
       minWidth: 120
     },
     {
@@ -210,6 +218,7 @@ const allPages = ref<string[]>([]);
 
 <template>
   <div ref="wrapperRef" class="flex-col-stretch gap-16px overflow-hidden lt-sm:overflow-auto">
+    <MenuSearch v-model:model="searchParams" @reset="resetSearchParams" @search="getDataByPage" />
     <NCard :title="$t('page.manage.menu.title')" :bordered="false" size="small" class="sm:flex-1-hidden card-wrapper">
       <template #header-extra>
         <TableHeaderOperation
@@ -239,6 +248,7 @@ const allPages = ref<string[]>([]);
         :operate-type="operateType"
         :row-data="editingData"
         :all-pages="allPages"
+        :platfrom="searchParams.platform || 'SAAS'"
         @submitted="getDataByPage"
       />
     </NCard>

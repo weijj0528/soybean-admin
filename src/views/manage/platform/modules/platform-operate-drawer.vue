@@ -1,21 +1,21 @@
 <script setup lang="ts">
+// import { useBoolean } from '@sa/hooks';
 import { computed, reactive, watch } from 'vue';
-import { useBoolean } from '@sa/hooks';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
-import { fetchAddRole, fetchUpdateRole } from '@/service/api';
-import MenuAuthModal from './menu-auth-modal.vue';
+import { fetchAddPlatform, fetchUpdatePlatform } from '@/service/api';
+// import MenuAuthModal from './menu-auth-modal.vue';
 // import ButtonAuthModal from './button-auth-modal.vue';
 
 defineOptions({
-  name: 'RoleOperateDrawer'
+  name: 'PlatformOperateDrawer'
 });
 
 interface Props {
   /** the type of operation */
   operateType: NaiveUI.TableOperateType;
   /** the edit row data */
-  rowData?: Api.SystemManage.Role | null;
+  rowData?: Api.SystemManage.Platform | null;
 }
 
 const props = defineProps<Props>();
@@ -32,20 +32,22 @@ const visible = defineModel<boolean>('visible', {
 
 const { formRef, validate, restoreValidation } = useNaiveForm();
 const { defaultRequiredRule, defaultOptionalRule } = useFormRules();
-const { bool: menuAuthVisible, setTrue: openMenuAuthModal } = useBoolean();
+// const { bool: menuAuthVisible, setTrue: openMenuAuthModal } = useBoolean();
 // const { bool: buttonAuthVisible, setTrue: openButtonAuthModal } = useBoolean();
 
 const title = computed(() => {
   const titles: Record<NaiveUI.TableOperateType, string> = {
-    add: $t('page.manage.role.addRole'),
-    edit: $t('page.manage.role.editRole')
+    add: $t('page.manage.platform.addPlatform'),
+    edit: $t('page.manage.platform.editPlatform')
   };
   return titles[props.operateType];
 });
 
-const model: Api.SystemManage.RoleEditModel = reactive(createDefaultModel());
+type Model = Pick<Api.SystemManage.Platform, 'name' | 'code' | 'remark'>;
 
-function createDefaultModel(): Api.SystemManage.RoleEditModel {
+const model: Model = reactive(createDefaultModel());
+
+function createDefaultModel(): Model {
   return {
     name: '',
     code: '',
@@ -53,23 +55,20 @@ function createDefaultModel(): Api.SystemManage.RoleEditModel {
   };
 }
 
-type RuleKey = Exclude<keyof Api.SystemManage.RoleEditModel, 'roleDesc'>;
+type RuleKey = Exclude<keyof Model, 'roleDesc'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
   name: defaultRequiredRule,
   code: defaultOptionalRule,
-  remark: defaultRequiredRule,
-  menus: defaultOptionalRule
+  remark: defaultRequiredRule
 };
 
 const roleId = computed(() => props.rowData?.id || -1);
 
-const platform = computed(() => props.rowData?.platform || 'SAAS');
-
 const isEdit = computed(() => props.operateType === 'edit');
-
 function handleInitModel() {
   Object.assign(model, createDefaultModel());
+  Object.assign(model, { id: null });
 
   if (props.operateType === 'edit' && props.rowData) {
     Object.assign(model, props.rowData);
@@ -84,20 +83,13 @@ async function handleSubmit() {
   await validate();
   // request
   const isAdd = props.operateType === 'add';
-  const { name, code, remark } = model;
-  const params = { name, code, remark };
-  console.log('handleSubmit: ', props.operateType, roleId.value, params);
+  console.log('handleSubmit: ', props.operateType, isAdd, model);
   if (isAdd) {
-    const { error } = await fetchAddRole(params);
-    if (!error) {
-      window.$message?.success($t('common.addSuccess'));
-    }
+    await fetchAddPlatform(model);
   } else {
-    const { error } = await fetchUpdateRole(roleId.value, params);
-    if (!error) {
-      window.$message?.success($t('common.updateSuccess'));
-    }
+    await fetchUpdatePlatform(roleId.value, model);
   }
+  // window.$message?.success($t('common.updateSuccess'));
   closeDrawer();
   emit('submitted');
 }
@@ -111,27 +103,19 @@ watch(visible, () => {
 </script>
 
 <template>
-  <NDrawer v-model:show="visible" display-directive="show" :width="600">
+  <NDrawer v-model:show="visible" display-directive="show" :width="360">
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
       <NForm ref="formRef" :model="model" :rules="rules">
-        <NFormItem :label="$t('page.manage.role.roleName')" path="roleName">
-          <NInput v-model:value="model.name" :placeholder="$t('page.manage.role.form.roleName')" />
+        <NFormItem :label="$t('page.manage.platform.name')" path="name">
+          <NInput v-model:value="model.name" :placeholder="$t('page.manage.platform.form.name')" />
         </NFormItem>
-        <NFormItem :label="$t('page.manage.role.roleCode')" path="roleCode">
-          <NInput v-model:value="model.code" :disabled="isEdit" :placeholder="$t('page.manage.role.form.roleCode')" />
+        <NFormItem :label="$t('page.manage.platform.code')" path="code">
+          <NInput v-model:value="model.code" :placeholder="$t('page.manage.platform.form.code')" :disabled="isEdit" />
         </NFormItem>
-        <NFormItem :label="$t('page.manage.role.roleDesc')" path="roleDesc">
-          <NInput v-model:value="model.remark" :placeholder="$t('page.manage.role.form.roleDesc')" />
+        <NFormItem :label="$t('page.manage.platform.remark')" path="remark">
+          <NInput v-model:value="model.remark" :placeholder="$t('page.manage.platform.form.remark')" />
         </NFormItem>
       </NForm>
-      <NSpace v-if="isEdit">
-        <NButton @click="openMenuAuthModal">{{ $t('page.manage.role.menuAuth') }}</NButton>
-        <MenuAuthModal v-model:visible="menuAuthVisible" :role-id="roleId" :platform="platform" />
-        <!--
- <NButton @click="openButtonAuthModal">{{ $t('page.manage.role.buttonAuth') }}</NButton>
-        <ButtonAuthModal v-model:visible="buttonAuthVisible" :role-id="roleId" /> 
--->
-      </NSpace>
       <template #footer>
         <NSpace :size="16">
           <NButton @click="closeDrawer">{{ $t('common.cancel') }}</NButton>
