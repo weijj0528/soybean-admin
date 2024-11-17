@@ -10,6 +10,7 @@ export function setupElegantRouter() {
     },
     customRoutes: {
       names: [
+        'home',
         'exception_403',
         'exception_404',
         'exception_500',

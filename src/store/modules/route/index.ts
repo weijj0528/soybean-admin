@@ -246,6 +246,7 @@ export const useRouteStore = defineStore(SetupStoreId.Route, () => {
   function resetVueRoutes() {
     removeRouteFns.forEach(fn => fn());
     removeRouteFns.length = 0;
+    console.log('reset vue routes');
   }
 
   /** init constant route */

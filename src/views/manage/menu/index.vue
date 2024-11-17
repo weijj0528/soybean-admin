@@ -4,11 +4,12 @@ import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import type { Ref } from 'vue';
 import { ref } from 'vue';
 import SvgIcon from '@/components/custom/svg-icon.vue';
+import { views } from '@/router/elegant/imports';
 import { menuTypeRecord } from '@/constants/business';
 import { yesOrNoRecord } from '@/constants/common';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
-import { fetchGetMenuList } from '@/service/api';
+import { fetchDelMenu, fetchGetMenuList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import MenuSearch from './modules/menu-search.vue';
 import MenuOperateModal, { type OperateType } from './modules/menu-operate-modal.vue';
@@ -164,8 +165,12 @@ const { checkedRowKeys, onBatchDeleted, onDeleted } = useTableOperate(data, getD
 
 const operateType = ref<OperateType>('add');
 
+/** the edit menu data or the parent menu data when adding a child menu */
+const editingData: Ref<Api.SystemManage.Menu | null> = ref(null);
+
 function handleAdd() {
   operateType.value = 'add';
+  editingData.value = null;
   openModal();
 }
 
@@ -176,15 +181,14 @@ async function handleBatchDelete() {
   onBatchDeleted();
 }
 
-function handleDelete(id: number) {
+async function handleDelete(id: number) {
   // request
   console.log(id);
-
-  onDeleted();
+  const { error } = await fetchDelMenu(id);
+  if (!error) {
+    onDeleted();
+  }
 }
-
-/** the edit menu data or the parent menu data when adding a child menu */
-const editingData: Ref<Api.SystemManage.Menu | null> = ref(null);
 
 function handleEdit(item: Api.SystemManage.Menu) {
   operateType.value = 'edit';
@@ -203,17 +207,16 @@ function handleAddChildMenu(item: Api.SystemManage.Menu) {
 
 const allPages = ref<string[]>([]);
 
-// async function getAllPages() {
-//   const { data: pages } = await fetchGetAllPages();
-//   allPages.value = pages || [];
-// }
+async function getAllPages() {
+  allPages.value = Object.entries(views).map(([value]) => value as string) || [];
+}
 
-// function init() {
-//   getAllPages();
-// }
+function init() {
+  getAllPages();
+}
 
 // init
-// init();
+init();
 </script>
 
 <template>

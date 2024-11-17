@@ -138,24 +138,24 @@ initPlatformSelect();
           ></NSelect>
         </NFormItem>
         <!--
- <NFormItem :label="$t('page.manage.tenant.status')" path="status">
+        <NFormItem :label="$t('page.manage.tenant.status')" path="status">
           <NRadioGroup v-model:value="model.status">
             <NRadio v-for="item in enableStatusOptions" :key="item.value" :value="item.value" :label="$t(item.label)" />
           </NRadioGroup>
         </NFormItem>
--->
+        -->
         <NFormItem :label="$t('page.manage.tenant.desc')" path="remark">
-          <NInput v-model:value="model.remark" :placeholder="$t('page.manage.tenant.form.desc')" />
+          <NInput v-model:value="model.remark" type="textarea" :placeholder="$t('page.manage.tenant.form.desc')" />
         </NFormItem>
       </NForm>
       <!--
- <NSpace v-if="isEdit">
+      <NSpace v-if="isEdit">
         <NButton @click="openMenuAuthModal">{{ $t('page.manage.tenant.menuAuth') }}</NButton>
         <MenuAuthModal v-model:visible="menuAuthVisible" :role-id="roleId" />
         <NButton @click="openButtonAuthModal">{{ $t('page.manage.tenant.buttonAuth') }}</NButton>
         <ButtonAuthModal v-model:visible="buttonAuthVisible" :role-id="roleId" />
       </NSpace>
--->
+      -->
       <template #footer>
         <NSpace :size="16">
           <NButton @click="closeDrawer">{{ $t('common.cancel') }}</NButton>

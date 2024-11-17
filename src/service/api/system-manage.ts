@@ -1,3 +1,4 @@
+import { urlSafeEncodeToBase64 } from '@sa/utils';
 import { request } from '../request';
 
 /** get sys api list */
@@ -23,56 +24,6 @@ export function fetchUpdateSysApi(
 ) {
   return request<Api.SystemManage.SysApi>({
     url: `/admin/sys/api/${id}`,
-    method: 'post',
-    data
-  });
-}
-
-/** get platform list */
-export function fetchGetPlatformList(params?: Api.SystemManage.PlatformSearchParams) {
-  return request<Api.SystemManage.PlatformList>({
-    url: '/admin/sys/platform',
-    method: 'get',
-    params
-  });
-}
-/** add new platform */
-export function fetchAddPlatform(data?: Pick<Api.SystemManage.Platform, 'name' | 'code' | 'remark'>) {
-  return request<Api.SystemManage.Platform>({
-    url: '/admin/sys/platform',
-    method: 'post',
-    data
-  });
-}
-/** update platform */
-export function fetchUpdatePlatform(id?: number, data?: Pick<Api.SystemManage.Platform, 'name' | 'code' | 'remark'>) {
-  return request<Api.SystemManage.Platform>({
-    url: `/admin/sys/platform/${id}`,
-    method: 'post',
-    data
-  });
-}
-
-/** get tenant list */
-export function fetchGetTenantList(params?: Api.SystemManage.TenantSearchParams) {
-  return request<Api.SystemManage.TenantList>({
-    url: '/admin/sys/tenant',
-    method: 'get',
-    params
-  });
-}
-/** add new tenant */
-export function fetchAddTenant(data?: Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'remark'>) {
-  return request<Api.SystemManage.Tenant>({
-    url: '/admin/sys/tenant',
-    method: 'post',
-    data
-  });
-}
-/** update tenant */
-export function fetchUpdateTenant(id?: number, data?: Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'remark'>) {
-  return request<Api.SystemManage.Tenant>({
-    url: `/admin/sys/tenant/${id}`,
     method: 'post',
     data
   });
@@ -105,11 +56,11 @@ export function fetchUpdateMenu(id: number, data: Api.SystemManage.MenuEditModel
   });
 }
 
-/** get all pages */
-export function fetchGetAllPages() {
-  return request<string[]>({
-    url: '/systemManage/getAllPages',
-    method: 'get'
+/** del menu */
+export function fetchDelMenu(id: number) {
+  return request<Api.SystemManage.Menu>({
+    url: `/admin/sys/menu/del/${id}`,
+    method: 'post'
   });
 }
 
@@ -177,5 +128,70 @@ export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
     url: '/admin/user/info',
     method: 'get',
     params
+  });
+}
+
+/** get platform list */
+export function fetchGetPlatformList(params?: Api.SystemManage.PlatformSearchParams) {
+  return request<Api.SystemManage.PlatformList>({
+    url: '/admin/sys/platform',
+    method: 'get',
+    params
+  });
+}
+/** add new platform */
+export function fetchAddPlatform(data?: Pick<Api.SystemManage.Platform, 'name' | 'code' | 'remark'>) {
+  return request<Api.SystemManage.Platform>({
+    url: '/admin/sys/platform',
+    method: 'post',
+    data
+  });
+}
+/** update platform */
+export function fetchUpdatePlatform(id?: number, data?: Pick<Api.SystemManage.Platform, 'name' | 'code' | 'remark'>) {
+  return request<Api.SystemManage.Platform>({
+    url: `/admin/sys/platform/${id}`,
+    method: 'post',
+    data
+  });
+}
+
+/** get tenant list */
+export function fetchGetTenantList(params?: Api.SystemManage.TenantSearchParams) {
+  return request<Api.SystemManage.TenantList>({
+    url: '/admin/sys/tenant',
+    method: 'get',
+    params
+  });
+}
+/** add new tenant */
+export function fetchAddTenant(data?: Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'remark'>) {
+  return request<Api.SystemManage.Tenant>({
+    url: '/admin/sys/tenant',
+    method: 'post',
+    data
+  });
+}
+/** update tenant */
+export function fetchUpdateTenant(id?: number, data?: Pick<Api.SystemManage.Tenant, 'name' | 'code' | 'remark'>) {
+  return request<Api.SystemManage.Tenant>({
+    url: `/admin/sys/tenant/${id}`,
+    method: 'post',
+    data
+  });
+}
+
+/** update tenant admin */
+export function fetchUpdateTenantAdmin(id: number, data: Api.SystemManage.TenantAdminEditModel) {
+  const { adminPwd, ...params } = data;
+  const pwd = urlSafeEncodeToBase64(adminPwd);
+  return request<Api.SystemManage.Tenant>({
+    url: `/admin/org/employee/tenant/admin`,
+    method: 'post',
+    data: {
+      id,
+      adminPwd: pwd,
+      ...params
+    }
   });
 }

@@ -101,7 +101,7 @@ declare namespace Api {
       iconType: SystemManage.IconType;
       routeName: string;
       routePath: string;
-      routeParams: string;
+      routeParams: any[];
       pathParams: string;
       i18nKey?: App.I18n.I18nKey;
       layout: string;
@@ -242,6 +242,8 @@ declare namespace Api {
     /** role search params */
     type MenuSearchParams = CommonType.RecordNullable<Pick<Api.SystemManage.Menu, 'platform'> & CommonSearchParams>;
 
+    type RoleType = 'SYS' | 'TENANT' | 'ORG';
+
     /** role */
     type Role = Common.CommonRecord<{
       /** role platform */
@@ -250,8 +252,8 @@ declare namespace Api {
       name: string;
       /** role code */
       code: string;
-      /** role code */
-      type: string;
+      /** role type */
+      type: RoleType;
       /** role description */
       remark: string;
     }>;
@@ -324,11 +326,18 @@ declare namespace Api {
       platform: string;
       /** tenant description */
       remark: string;
-      /** tenant description */
-      adminUser: string;
-      /** tenant description */
+      /** tenant admin user */
+      adminUser: number;
+      /** tenant admin name */
       adminName: string;
     }>;
+
+    type TenantAdminEditModel = {
+      name: string;
+      adminUser?: number;
+      adminName: string;
+      adminPwd: string;
+    };
 
     /** tenant list */
     type TenantList = Common.PaginatingQueryRecord<Tenant>;

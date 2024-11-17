@@ -356,6 +356,8 @@ const local: App.I18n.Schema = {
         title: 'Role List',
         roleName: 'Role Name',
         roleCode: 'Role Code',
+        roleType: 'Role Type',
+        rolePlatform: 'Role Platform',
         roleStatus: 'Role Status',
         roleDesc: 'Role Description',
         menuAuth: 'Menu Auth',
@@ -367,7 +369,12 @@ const local: App.I18n.Schema = {
           roleDesc: 'Please enter role description'
         },
         addRole: 'Add Role',
-        editRole: 'Edit Role'
+        editRole: 'Edit Role',
+        type: {
+          sys: 'System Role',
+          tenant: 'Tenant Role',
+          org: 'Org Role'
+        }
       },
       tenant: {
         title: 'Tenant List',
@@ -387,7 +394,13 @@ const local: App.I18n.Schema = {
         },
         addTenant: 'Add Tenant',
         editTenant: 'Edit Tenant',
-        editAdmin: 'Set Tenant Admin'
+        editAdmin: 'Set Tenant Admin',
+        editAdminName: 'Admin user name',
+        editAdminPwd: 'Admin user password',
+        editAdminForm: {
+          adminName: 'Please enter admin username',
+          adminPwd: 'Please enter admin password'
+        }
       },
       platform: {
         title: 'Platform List',

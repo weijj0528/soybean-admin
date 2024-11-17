@@ -356,6 +356,8 @@ const local: App.I18n.Schema = {
         title: '角色列表',
         roleName: '角色名称',
         roleCode: '角色编码',
+        roleType: '角色类型',
+        rolePlatform: '角色平台',
         roleStatus: '角色状态',
         roleDesc: '角色描述',
         menuAuth: '菜单权限',
@@ -367,7 +369,12 @@ const local: App.I18n.Schema = {
           roleDesc: '请输入角色描述'
         },
         addRole: '新增角色',
-        editRole: '编辑角色'
+        editRole: '编辑角色',
+        type: {
+          sys: '系统角色',
+          tenant: '租户角色',
+          org: '组织角色'
+        }
       },
       tenant: {
         title: '租户列表',
@@ -387,7 +394,13 @@ const local: App.I18n.Schema = {
         },
         addTenant: '新增租户',
         editTenant: '编辑租户',
-        editAdmin: '管理员设置'
+        editAdmin: '管理员设置',
+        editAdminName: '管理员用户名',
+        editAdminPwd: '管理员密码',
+        editAdminForm: {
+          adminName: '请输入租户管理员用户名',
+          adminPwd: '请输入租户管理员密码'
+        }
       },
       platform: {
         title: '平台列表',

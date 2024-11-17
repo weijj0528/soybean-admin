@@ -1,10 +1,13 @@
 <script setup lang="tsx">
+import { ref } from 'vue';
 import { NButton } from 'naive-ui';
+import { useBoolean } from '@sa/hooks';
 import { fetchGetTenantList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
 // import { enableStatusRecord } from '@/constants/business';
+import TenantAdminModal from './modules/tenant-admin-modal.vue';
 import TenantOperateDrawer from './modules/tenant-operate-drawer.vue';
 import TenantSearch from './modules/tenant-search.vue';
 
@@ -96,7 +99,7 @@ const {
           <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
             {$t('common.edit')}
           </NButton>
-          <NButton type="warning" ghost size="small" onClick={() => editAdmin(row.id)}>
+          <NButton type="warning" ghost size="small" onClick={() => editAdmin(row)}>
             {$t('page.manage.tenant.editAdmin')}
           </NButton>
           {/* <NPopconfirm onPositiveClick={() => handleDelete(row.id)}>
@@ -145,8 +148,13 @@ function edit(id: number) {
   handleEdit(id);
 }
 
-function editAdmin(id: number) {
-  console.log('editAdmin', id);
+const { bool: tenantAdminVisible, setTrue: openTenantAdminModal } = useBoolean();
+
+const tenantAdmin = ref<Api.SystemManage.Tenant | null>(null);
+function editAdmin(tenant: Api.SystemManage.Tenant) {
+  console.log('editAdmin', tenant);
+  tenantAdmin.value = tenant;
+  openTenantAdminModal();
 }
 </script>
 
@@ -184,6 +192,7 @@ function editAdmin(id: number) {
         :row-data="editingData"
         @submitted="getDataByPage"
       />
+      <TenantAdminModal v-model:visible="tenantAdminVisible" :tenant="tenantAdmin" @finish="getData" />
     </NCard>
   </div>
 </template>

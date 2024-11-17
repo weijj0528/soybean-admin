@@ -565,6 +565,8 @@ declare namespace App {
             title: string;
             roleName: string;
             roleCode: string;
+            roleType: string;
+            rolePlatform: string;
             roleStatus: string;
             roleDesc: string;
             form: {
@@ -577,6 +579,11 @@ declare namespace App {
             editRole: string;
             menuAuth: string;
             buttonAuth: string;
+            type: {
+              sys: string;
+              tenant: string;
+              org: string;
+            };
           };
           tenant: {
             title: string;
@@ -585,6 +592,8 @@ declare namespace App {
             platform: string;
             status: string;
             desc: string;
+            addTenant: string;
+            editTenant: string;
             form: {
               name: string;
               code: string;
@@ -592,11 +601,15 @@ declare namespace App {
               status: string;
               desc: string;
             };
-            addTenant: string;
-            editTenant: string;
             menuAuth: string;
             buttonAuth: string;
             editAdmin: string;
+            editAdminName: string;
+            editAdminPwd: string;
+            editAdminForm: {
+              adminName: string;
+              adminPwd: string;
+            };
           };
           platform: {
             title: string;

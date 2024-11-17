@@ -113,7 +113,7 @@ watch(visible, () => {
           <NInput v-model:value="model.code" :placeholder="$t('page.manage.platform.form.code')" :disabled="isEdit" />
         </NFormItem>
         <NFormItem :label="$t('page.manage.platform.remark')" path="remark">
-          <NInput v-model:value="model.remark" :placeholder="$t('page.manage.platform.form.remark')" />
+          <NInput v-model:value="model.remark" type="textarea" :placeholder="$t('page.manage.platform.form.remark')" />
         </NFormItem>
       </NForm>
       <template #footer>

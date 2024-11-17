@@ -139,8 +139,7 @@ const customRoutes: CustomRoute[] = [
           title: 'document_project',
           i18nKey: 'route.document_project',
           order: 1,
-          localIcon: 'logo',
-          href: 'https://docs.soybeanjs.cn/zh'
+          localIcon: 'logo'
         }
       },
       {

@@ -26,6 +26,12 @@ export const menuTypeRecord: Record<Api.SystemManage.MenuType, App.I18n.I18nKey>
   FUNC: 'page.manage.menu.type.func'
 };
 
+export const roleTypeRecord: Record<Api.SystemManage.RoleType, App.I18n.I18nKey> = {
+  SYS: 'page.manage.role.type.sys',
+  TENANT: 'page.manage.role.type.tenant',
+  ORG: 'page.manage.role.type.org'
+};
+
 export const menuTypeOptions = transformRecordToOption(menuTypeRecord);
 
 export const menuIconTypeRecord: Record<Api.SystemManage.IconType, App.I18n.I18nKey> = {

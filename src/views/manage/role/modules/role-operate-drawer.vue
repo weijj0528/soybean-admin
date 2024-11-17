@@ -121,7 +121,7 @@ watch(visible, () => {
           <NInput v-model:value="model.code" :disabled="isEdit" :placeholder="$t('page.manage.role.form.roleCode')" />
         </NFormItem>
         <NFormItem :label="$t('page.manage.role.roleDesc')" path="roleDesc">
-          <NInput v-model:value="model.remark" :placeholder="$t('page.manage.role.form.roleDesc')" />
+          <NInput v-model:value="model.remark" type="textarea" :placeholder="$t('page.manage.role.form.roleDesc')" />
         </NFormItem>
       </NForm>
       <NSpace v-if="isEdit">
@@ -129,7 +129,7 @@ watch(visible, () => {
         <MenuAuthModal v-model:visible="menuAuthVisible" :role-id="roleId" :platform="platform" />
         <!--
  <NButton @click="openButtonAuthModal">{{ $t('page.manage.role.buttonAuth') }}</NButton>
-        <ButtonAuthModal v-model:visible="buttonAuthVisible" :role-id="roleId" /> 
+        <ButtonAuthModal v-model:visible="buttonAuthVisible" :role-id="roleId" />
 -->
       </NSpace>
       <template #footer>

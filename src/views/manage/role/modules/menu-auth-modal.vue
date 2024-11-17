@@ -127,7 +127,7 @@ watch(visible, val => {
  <div class="flex-y-center gap-16px pb-12px">
       <div>{{ $t('page.manage.menu.home') }}</div>
       <NSelect :value="home" :options="pageSelectOptions" size="small" class="w-160px" @update:value="updateHome" />
-    </div> 
+    </div>
 -->
     <NTree
       v-model:checked-keys="checks"
@@ -135,7 +135,6 @@ watch(visible, val => {
       key-field="id"
       label-field="name"
       show-line
-      cascade
       checkable
       expand-on-click
       virtual-scroll

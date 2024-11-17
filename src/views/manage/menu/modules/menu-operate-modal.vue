@@ -93,6 +93,23 @@ const rules: Record<RuleKey, App.Global.FormRule> = {
   name: defaultRequiredRule
 };
 
+const filterMenuTypeOptions = computed(() => {
+  if (props.operateType === 'edit') {
+    return menuTypeOptions;
+  }
+  const options: string[] = [];
+  if (!props.rowData) {
+    options.push('MODULE');
+  } else if (props.rowData.type === 'MODULE') {
+    options.push('GROUP');
+  } else if (props.rowData.type === 'GROUP') {
+    options.push('PAGE', 'FUNC');
+  } else if (props.rowData.type === 'PAGE') {
+    options.push('FUNC');
+  }
+  return menuTypeOptions.filter(item => options.includes(item.value));
+});
+
 const disabledMenuType = computed(() => props.operateType === 'edit');
 
 const localIcons = getLocalIcons();
@@ -156,6 +173,8 @@ function handleInitModel() {
   Object.assign(model, createDefaultModel());
 
   if (!props.rowData) return;
+
+  model.type = filterMenuTypeOptions.value[0].value;
 
   if (props.operateType === 'addChild') {
     const { id } = props.rowData;
@@ -264,7 +283,12 @@ watch(
         <NGrid responsive="screen" item-responsive>
           <NFormItemGi span="24 m:12" :label="$t('page.manage.menu.menuType')" path="menuType">
             <NRadioGroup v-model:value="model.type" :disabled="disabledMenuType">
-              <NRadio v-for="item in menuTypeOptions" :key="item.value" :value="item.value" :label="$t(item.label)" />
+              <NRadio
+                v-for="item in filterMenuTypeOptions"
+                :key="item.value"
+                :value="item.value"
+                :label="$t(item.label)"
+              />
             </NRadioGroup>
           </NFormItemGi>
           <NFormItemGi span="24 m:12" :label="$t('page.manage.menu.menuName')" path="menuName">
@@ -387,7 +411,7 @@ watch(
             />
           </NFormItemGi>
 -->
-          <NFormItemGi span="24" :label="$t('page.manage.menu.query')">
+          <NFormItemGi v-if="showPage" span="24" :label="$t('page.manage.menu.query')">
             <NDynamicInput
               v-model:value="model.routeParams"
               preset="pair"
@@ -406,36 +430,13 @@ watch(
               </template>
             </NDynamicInput>
           </NFormItemGi>
-          <!--
- <NFormItemGi span="24" :label="$t('page.manage.menu.button')">
-            <NDynamicInput v-model:value="model.buttons" :on-create="handleCreateButton">
-              <template #default="{ value }">
-                <div class="ml-8px flex-y-center flex-1 gap-12px">
-                  <NInput
-                    v-model:value="value.code"
-                    :placeholder="$t('page.manage.menu.form.buttonCode')"
-                    class="flex-1"
-                  />
-                  <NInput
-                    v-model:value="value.desc"
-                    :placeholder="$t('page.manage.menu.form.buttonDesc')"
-                    class="flex-1"
-                  />
-                </div>
-              </template>
-              <template #action="{ index, create, remove }">
-                <NSpace class="ml-12px">
-                  <NButton size="medium" @click="() => create(index)">
-                    <icon-ic:round-plus class="text-icon" />
-                  </NButton>
-                  <NButton size="medium" @click="() => remove(index)">
-                    <icon-ic-round-remove class="text-icon" />
-                  </NButton>
-                </NSpace>
-              </template>
-            </NDynamicInput>
+          <NFormItemGi v-if="showPage" span="24" label=" ">
+            <NGradientText type="error">
+              *url: 菜单内链地址（在应用TAB中打开链接地址）
+              <br />
+              *href: 菜单外链地址（在浏览器新TAB中打开链接地址）
+            </NGradientText>
           </NFormItemGi>
--->
         </NGrid>
       </NForm>
     </NScrollbar>

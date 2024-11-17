@@ -1,12 +1,12 @@
 <script setup lang="tsx">
 import { computed } from 'vue';
-import { NButton, NPopconfirm } from 'naive-ui';
+import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { fetchGetRoleList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useAuthStore } from '@/store/modules/auth';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
-// import { enableStatusRecord } from '@/constants/business';
+import { roleTypeRecord } from '@/constants/business';
 import RoleOperateDrawer from './modules/role-operate-drawer.vue';
 import RoleSearch from './modules/role-search.vue';
 
@@ -59,6 +59,34 @@ const {
     {
       key: 'code',
       title: $t('page.manage.role.roleCode'),
+      align: 'center',
+      minWidth: 120
+    },
+    {
+      key: 'type',
+      title: $t('page.manage.role.roleType'),
+      align: 'center',
+      minWidth: 120,
+
+      render: row => {
+        if (row.type === null) {
+          return null;
+        }
+
+        const tagMap: Record<Api.SystemManage.RoleType, NaiveUI.ThemeColor> = {
+          SYS: 'error',
+          TENANT: 'warning',
+          ORG: 'success'
+        };
+
+        const label = $t(roleTypeRecord[row.type]);
+
+        return <NTag type={tagMap[row.type]}>{label}</NTag>;
+      }
+    },
+    {
+      key: 'platform',
+      title: $t('page.manage.role.rolePlatform'),
       align: 'center',
       minWidth: 120
     },

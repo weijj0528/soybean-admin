@@ -128,7 +128,8 @@ function filterModuleFormDynamicAuthRoute(dynamic: Api.Route.DynamicRoute[]) {
       name: route.routeName,
       title: route.name,
       i18nKey: route.i18nKey,
-      icon: route.icon,
+      icon: route.iconType === '2' ? route.icon : undefined,
+      localIcon: route.iconType === '1' ? route.icon : undefined,
       order: route.sort,
       constant: false
     };
@@ -139,17 +140,42 @@ function filterModuleFormDynamicAuthRoute(dynamic: Api.Route.DynamicRoute[]) {
   return modules;
 }
 
+function getRouterParams(params: any[], key: string) {
+  if (!params || params.length === 0) {
+    return null;
+  }
+  return params.filter(item => item?.key === key)[0]?.value || '';
+}
+
+function routerParamsConvertQuery(params: any[], excludeKeys: string[]) {
+  return params
+    .filter(item => !excludeKeys.includes(item?.key))
+    .map(item => {
+      return {
+        key: item?.key,
+        value: item?.value
+      };
+    });
+}
+
 function dynamicAuthRouteConvertMenuRoute(dynamic: Api.Route.DynamicRoute) {
   const route: Api.Route.MenuRoute = {
     id: String(dynamic.id),
     name: dynamic.routeName,
     path: dynamic.routePath,
     component: dynamic.component,
+    props: {
+      url: getRouterParams(dynamic.routeParams, 'url')
+    },
     meta: {
       title: dynamic.name,
       i18nKey: dynamic.i18nKey,
-      icon: dynamic.icon,
-      order: dynamic.sort
+      href: getRouterParams(dynamic.routeParams, 'href'),
+      icon: dynamic.iconType === '2' ? dynamic.icon : undefined,
+      localIcon: dynamic.iconType === '1' ? dynamic.icon : undefined,
+      order: dynamic.sort,
+      hideInMenu: dynamic.hide,
+      query: routerParamsConvertQuery(dynamic.routeParams, ['url', 'href'])
     },
     children: dynamic.children?.map(child => dynamicAuthRouteConvertMenuRoute(child))
   };
