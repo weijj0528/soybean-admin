@@ -3,6 +3,9 @@ import { layouts, views } from '../elegant/imports';
 import { generatedRoutes } from '../elegant/routes';
 import { transformElegantRoutesToVueRoutes } from '../elegant/transform';
 
+/** specil route names */
+const specilRouteNames: string[] = ['home'];
+
 /** custom modules */
 const customModules: App.Global.Module[] = [
   {
@@ -23,23 +26,11 @@ const customModules: App.Global.Module[] = [
 ];
 
 /**
- * custom routes
+ * custom routes 自定义路由应与生成的路由不一样, 需预先在以下文件中定义 build\plugins\router.ts
  *
  * @link https://github.com/soybeanjs/elegant-router?tab=readme-ov-file#custom-route
  */
 const customRoutes: CustomRoute[] = [
-  {
-    name: 'home',
-    path: '/home',
-    component: 'layout.base$view.home',
-    meta: {
-      title: 'home',
-      i18nKey: 'route.home',
-      icon: 'mdi:monitor-dashboard',
-      order: 0,
-      module: 'ALL'
-    }
-  },
   {
     name: 'exception',
     path: '/exception',
@@ -229,7 +220,9 @@ export function createCustomRoutes() {
 
   const authRoutes: ElegantRoute[] = [];
 
-  customRoutes.forEach(item => {
+  const specilRoutes = generatedRoutes.filter(item => specilRouteNames.includes(item.name));
+
+  [...specilRoutes, ...customRoutes].forEach(item => {
     if (item.meta?.constant) {
       constantRoutes.push(item);
     } else {

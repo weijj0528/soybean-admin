@@ -33,16 +33,41 @@ declare module "@elegant-router/types" {
     "404": "/404";
     "500": "/500";
     "about": "/about";
-    "function": "/function";
-    "function_hide-child": "/function/hide-child";
-    "function_hide-child_one": "/function/hide-child/one";
-    "function_hide-child_three": "/function/hide-child/three";
-    "function_hide-child_two": "/function/hide-child/two";
-    "function_multi-tab": "/function/multi-tab";
-    "function_request": "/function/request";
-    "function_super-page": "/function/super-page";
-    "function_tab": "/function/tab";
-    "function_toggle-auth": "/function/toggle-auth";
+    "demo": "/demo";
+    "demo_function": "/demo/function";
+    "demo_function_hide-child": "/demo/function/hide-child";
+    "demo_function_hide-child_one": "/demo/function/hide-child/one";
+    "demo_function_hide-child_three": "/demo/function/hide-child/three";
+    "demo_function_hide-child_two": "/demo/function/hide-child/two";
+    "demo_function_multi-tab": "/demo/function/multi-tab";
+    "demo_function_request": "/demo/function/request";
+    "demo_function_super-page": "/demo/function/super-page";
+    "demo_function_tab": "/demo/function/tab";
+    "demo_function_toggle-auth": "/demo/function/toggle-auth";
+    "demo_multi-menu": "/demo/multi-menu";
+    "demo_multi-menu_first": "/demo/multi-menu/first";
+    "demo_multi-menu_first_child": "/demo/multi-menu/first/child";
+    "demo_multi-menu_second": "/demo/multi-menu/second";
+    "demo_multi-menu_second_child": "/demo/multi-menu/second/child";
+    "demo_multi-menu_second_child_home": "/demo/multi-menu/second/child/home";
+    "demo_plugin": "/demo/plugin";
+    "demo_plugin_barcode": "/demo/plugin/barcode";
+    "demo_plugin_charts": "/demo/plugin/charts";
+    "demo_plugin_charts_echarts": "/demo/plugin/charts/echarts";
+    "demo_plugin_copy": "/demo/plugin/copy";
+    "demo_plugin_editor": "/demo/plugin/editor";
+    "demo_plugin_editor_markdown": "/demo/plugin/editor/markdown";
+    "demo_plugin_editor_quill": "/demo/plugin/editor/quill";
+    "demo_plugin_excel": "/demo/plugin/excel";
+    "demo_plugin_gantt": "/demo/plugin/gantt";
+    "demo_plugin_icon": "/demo/plugin/icon";
+    "demo_plugin_map": "/demo/plugin/map";
+    "demo_plugin_pdf": "/demo/plugin/pdf";
+    "demo_plugin_pinyin": "/demo/plugin/pinyin";
+    "demo_plugin_print": "/demo/plugin/print";
+    "demo_plugin_swiper": "/demo/plugin/swiper";
+    "demo_plugin_typeit": "/demo/plugin/typeit";
+    "demo_plugin_video": "/demo/plugin/video";
     "home": "/home";
     "iframe-page": "/iframe-page/:url";
     "login": "/login/:module(pwd-login|code-login|register|reset-pwd|bind-wechat)?";
@@ -55,30 +80,6 @@ declare module "@elegant-router/types" {
     "manage_user": "/manage/user";
     "manage_user-center": "/manage/user-center";
     "manage_user-detail": "/manage/user-detail/:id";
-    "multi-menu": "/multi-menu";
-    "multi-menu_first": "/multi-menu/first";
-    "multi-menu_first_child": "/multi-menu/first/child";
-    "multi-menu_second": "/multi-menu/second";
-    "multi-menu_second_child": "/multi-menu/second/child";
-    "multi-menu_second_child_home": "/multi-menu/second/child/home";
-    "plugin": "/plugin";
-    "plugin_barcode": "/plugin/barcode";
-    "plugin_charts": "/plugin/charts";
-    "plugin_charts_echarts": "/plugin/charts/echarts";
-    "plugin_copy": "/plugin/copy";
-    "plugin_editor": "/plugin/editor";
-    "plugin_editor_markdown": "/plugin/editor/markdown";
-    "plugin_editor_quill": "/plugin/editor/quill";
-    "plugin_excel": "/plugin/excel";
-    "plugin_gantt": "/plugin/gantt";
-    "plugin_icon": "/plugin/icon";
-    "plugin_map": "/plugin/map";
-    "plugin_pdf": "/plugin/pdf";
-    "plugin_pinyin": "/plugin/pinyin";
-    "plugin_print": "/plugin/print";
-    "plugin_swiper": "/plugin/swiper";
-    "plugin_typeit": "/plugin/typeit";
-    "plugin_video": "/plugin/video";
   };
 
   /**
@@ -97,7 +98,6 @@ declare module "@elegant-router/types" {
   export type CustomRouteKey = Extract<
     RouteKey,
     | "root"
-    | "home"
     | "not-found"
     | "exception"
     | "exception_403"
@@ -127,13 +127,11 @@ declare module "@elegant-router/types" {
     | "404"
     | "500"
     | "about"
-    | "function"
+    | "demo"
     | "home"
     | "iframe-page"
     | "login"
     | "manage"
-    | "multi-menu"
-    | "plugin"
   >;
 
   /**
@@ -142,7 +140,6 @@ declare module "@elegant-router/types" {
   export type CustomFirstLevelRouteKey = Extract<
     CustomRouteKey,
     | "root"
-    | "home"
     | "not-found"
     | "exception"
     | "document"
@@ -159,14 +156,31 @@ declare module "@elegant-router/types" {
     | "iframe-page"
     | "login"
     | "about"
-    | "function_hide-child_one"
-    | "function_hide-child_three"
-    | "function_hide-child_two"
-    | "function_multi-tab"
-    | "function_request"
-    | "function_super-page"
-    | "function_tab"
-    | "function_toggle-auth"
+    | "demo_function_hide-child_one"
+    | "demo_function_hide-child_three"
+    | "demo_function_hide-child_two"
+    | "demo_function_multi-tab"
+    | "demo_function_request"
+    | "demo_function_super-page"
+    | "demo_function_tab"
+    | "demo_function_toggle-auth"
+    | "demo_multi-menu_first_child"
+    | "demo_multi-menu_second_child_home"
+    | "demo_plugin_barcode"
+    | "demo_plugin_charts_echarts"
+    | "demo_plugin_copy"
+    | "demo_plugin_editor_markdown"
+    | "demo_plugin_editor_quill"
+    | "demo_plugin_excel"
+    | "demo_plugin_gantt"
+    | "demo_plugin_icon"
+    | "demo_plugin_map"
+    | "demo_plugin_pdf"
+    | "demo_plugin_pinyin"
+    | "demo_plugin_print"
+    | "demo_plugin_swiper"
+    | "demo_plugin_typeit"
+    | "demo_plugin_video"
     | "home"
     | "manage_api"
     | "manage_menu"
@@ -176,23 +190,6 @@ declare module "@elegant-router/types" {
     | "manage_user-center"
     | "manage_user-detail"
     | "manage_user"
-    | "multi-menu_first_child"
-    | "multi-menu_second_child_home"
-    | "plugin_barcode"
-    | "plugin_charts_echarts"
-    | "plugin_copy"
-    | "plugin_editor_markdown"
-    | "plugin_editor_quill"
-    | "plugin_excel"
-    | "plugin_gantt"
-    | "plugin_icon"
-    | "plugin_map"
-    | "plugin_pdf"
-    | "plugin_pinyin"
-    | "plugin_print"
-    | "plugin_swiper"
-    | "plugin_typeit"
-    | "plugin_video"
   >;
 
   /**
@@ -274,7 +271,7 @@ declare module "@elegant-router/types" {
         component: `view.${K}`;
       }
     : never;
-
+  
   /**
    * the center level route
    */
@@ -297,7 +294,7 @@ declare module "@elegant-router/types" {
         children: (CenterLevelRoute<GetChildRouteKey<K>> | LastLevelRoute<GetChildRouteKey<K>>)[];
       }
     : never;
-
+  
   /**
    * the custom first level route
    */

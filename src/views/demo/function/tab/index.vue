@@ -40,10 +40,10 @@ function resetTabLabel() {
       </NSpace>
       <NDivider title-placement="left">{{ $t('page.function.tab.tabOperate.addMultiTab') }}</NDivider>
       <NSpace>
-        <NButton @click="routerPushByKey('function_multi-tab')">
+        <NButton @click="routerPushByKey('demo_function_multi-tab')">
           {{ $t('page.function.tab.tabOperate.addMultiTabDesc1') }}
         </NButton>
-        <NButton @click="routerPushByKey('function_multi-tab', { query: { a: '1' } })">
+        <NButton @click="routerPushByKey('demo_function_multi-tab', { query: { a: '1' } })">
           {{ $t('page.function.tab.tabOperate.addMultiTabDesc2') }}
         </NButton>
       </NSpace>

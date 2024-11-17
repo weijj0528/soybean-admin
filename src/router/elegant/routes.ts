@@ -51,121 +51,328 @@ export const generatedRoutes: GeneratedRoute[] = [
     }
   },
   {
-    name: 'function',
-    path: '/function',
+    name: 'demo',
+    path: '/demo',
     component: 'layout.base',
     meta: {
-      title: 'function',
-      i18nKey: 'route.function',
-      icon: 'icon-park-outline:all-application',
-      order: 6,
-      module: 'Demo'
+      title: 'demo',
+      i18nKey: 'route.demo'
     },
     children: [
       {
-        name: 'function_hide-child',
-        path: '/function/hide-child',
+        name: 'demo_function',
+        path: '/demo/function',
         meta: {
-          title: 'function_hide-child',
-          i18nKey: 'route.function_hide-child',
-          icon: 'material-symbols:filter-list-off',
-          order: 2
+          title: 'demo_function',
+          i18nKey: 'route.demo_function'
         },
-        redirect: '/function/hide-child/one',
         children: [
           {
-            name: 'function_hide-child_one',
-            path: '/function/hide-child/one',
-            component: 'view.function_hide-child_one',
+            name: 'demo_function_hide-child',
+            path: '/demo/function/hide-child',
             meta: {
-              title: 'function_hide-child_one',
-              i18nKey: 'route.function_hide-child_one',
-              icon: 'material-symbols:filter-list-off',
-              hideInMenu: true,
-              activeMenu: 'function_hide-child'
+              title: 'demo_function_hide-child',
+              i18nKey: 'route.demo_function_hide-child'
+            },
+            children: [
+              {
+                name: 'demo_function_hide-child_one',
+                path: '/demo/function/hide-child/one',
+                component: 'view.demo_function_hide-child_one',
+                meta: {
+                  title: 'demo_function_hide-child_one',
+                  i18nKey: 'route.demo_function_hide-child_one'
+                }
+              },
+              {
+                name: 'demo_function_hide-child_three',
+                path: '/demo/function/hide-child/three',
+                component: 'view.demo_function_hide-child_three',
+                meta: {
+                  title: 'demo_function_hide-child_three',
+                  i18nKey: 'route.demo_function_hide-child_three'
+                }
+              },
+              {
+                name: 'demo_function_hide-child_two',
+                path: '/demo/function/hide-child/two',
+                component: 'view.demo_function_hide-child_two',
+                meta: {
+                  title: 'demo_function_hide-child_two',
+                  i18nKey: 'route.demo_function_hide-child_two'
+                }
+              }
+            ]
+          },
+          {
+            name: 'demo_function_multi-tab',
+            path: '/demo/function/multi-tab',
+            component: 'view.demo_function_multi-tab',
+            meta: {
+              title: 'demo_function_multi-tab',
+              i18nKey: 'route.demo_function_multi-tab'
             }
           },
           {
-            name: 'function_hide-child_three',
-            path: '/function/hide-child/three',
-            component: 'view.function_hide-child_three',
+            name: 'demo_function_request',
+            path: '/demo/function/request',
+            component: 'view.demo_function_request',
             meta: {
-              title: 'function_hide-child_three',
-              i18nKey: 'route.function_hide-child_three',
-              hideInMenu: true,
-              activeMenu: 'function_hide-child'
+              title: 'demo_function_request',
+              i18nKey: 'route.demo_function_request'
             }
           },
           {
-            name: 'function_hide-child_two',
-            path: '/function/hide-child/two',
-            component: 'view.function_hide-child_two',
+            name: 'demo_function_super-page',
+            path: '/demo/function/super-page',
+            component: 'view.demo_function_super-page',
             meta: {
-              title: 'function_hide-child_two',
-              i18nKey: 'route.function_hide-child_two',
-              hideInMenu: true,
-              activeMenu: 'function_hide-child'
+              title: 'demo_function_super-page',
+              i18nKey: 'route.demo_function_super-page'
+            }
+          },
+          {
+            name: 'demo_function_tab',
+            path: '/demo/function/tab',
+            component: 'view.demo_function_tab',
+            meta: {
+              title: 'demo_function_tab',
+              i18nKey: 'route.demo_function_tab'
+            }
+          },
+          {
+            name: 'demo_function_toggle-auth',
+            path: '/demo/function/toggle-auth',
+            component: 'view.demo_function_toggle-auth',
+            meta: {
+              title: 'demo_function_toggle-auth',
+              i18nKey: 'route.demo_function_toggle-auth'
             }
           }
         ]
       },
       {
-        name: 'function_multi-tab',
-        path: '/function/multi-tab',
-        component: 'view.function_multi-tab',
+        name: 'demo_multi-menu',
+        path: '/demo/multi-menu',
         meta: {
-          title: 'function_multi-tab',
-          i18nKey: 'route.function_multi-tab',
-          icon: 'ic:round-tab',
-          multiTab: true,
-          hideInMenu: true,
-          activeMenu: 'function_tab'
-        }
+          title: 'demo_multi-menu',
+          i18nKey: 'route.demo_multi-menu'
+        },
+        children: [
+          {
+            name: 'demo_multi-menu_first',
+            path: '/demo/multi-menu/first',
+            meta: {
+              title: 'demo_multi-menu_first',
+              i18nKey: 'route.demo_multi-menu_first'
+            },
+            children: [
+              {
+                name: 'demo_multi-menu_first_child',
+                path: '/demo/multi-menu/first/child',
+                component: 'view.demo_multi-menu_first_child',
+                meta: {
+                  title: 'demo_multi-menu_first_child',
+                  i18nKey: 'route.demo_multi-menu_first_child'
+                }
+              }
+            ]
+          },
+          {
+            name: 'demo_multi-menu_second',
+            path: '/demo/multi-menu/second',
+            meta: {
+              title: 'demo_multi-menu_second',
+              i18nKey: 'route.demo_multi-menu_second'
+            },
+            children: [
+              {
+                name: 'demo_multi-menu_second_child',
+                path: '/demo/multi-menu/second/child',
+                meta: {
+                  title: 'demo_multi-menu_second_child',
+                  i18nKey: 'route.demo_multi-menu_second_child'
+                },
+                children: [
+                  {
+                    name: 'demo_multi-menu_second_child_home',
+                    path: '/demo/multi-menu/second/child/home',
+                    component: 'view.demo_multi-menu_second_child_home',
+                    meta: {
+                      title: 'demo_multi-menu_second_child_home',
+                      i18nKey: 'route.demo_multi-menu_second_child_home'
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
       },
       {
-        name: 'function_request',
-        path: '/function/request',
-        component: 'view.function_request',
+        name: 'demo_plugin',
+        path: '/demo/plugin',
         meta: {
-          title: 'function_request',
-          i18nKey: 'route.function_request',
-          icon: 'carbon:network-overlay',
-          order: 3
-        }
-      },
-      {
-        name: 'function_super-page',
-        path: '/function/super-page',
-        component: 'view.function_super-page',
-        meta: {
-          title: 'function_super-page',
-          i18nKey: 'route.function_super-page',
-          icon: 'ic:round-supervisor-account',
-          order: 5,
-          roles: ['R_SUPER']
-        }
-      },
-      {
-        name: 'function_tab',
-        path: '/function/tab',
-        component: 'view.function_tab',
-        meta: {
-          title: 'function_tab',
-          i18nKey: 'route.function_tab',
-          icon: 'ic:round-tab',
-          order: 1
-        }
-      },
-      {
-        name: 'function_toggle-auth',
-        path: '/function/toggle-auth',
-        component: 'view.function_toggle-auth',
-        meta: {
-          title: 'function_toggle-auth',
-          i18nKey: 'route.function_toggle-auth',
-          icon: 'ic:round-construction',
-          order: 4
-        }
+          title: 'demo_plugin',
+          i18nKey: 'route.demo_plugin'
+        },
+        children: [
+          {
+            name: 'demo_plugin_barcode',
+            path: '/demo/plugin/barcode',
+            component: 'view.demo_plugin_barcode',
+            meta: {
+              title: 'demo_plugin_barcode',
+              i18nKey: 'route.demo_plugin_barcode'
+            }
+          },
+          {
+            name: 'demo_plugin_charts',
+            path: '/demo/plugin/charts',
+            meta: {
+              title: 'demo_plugin_charts',
+              i18nKey: 'route.demo_plugin_charts'
+            },
+            children: [
+              {
+                name: 'demo_plugin_charts_echarts',
+                path: '/demo/plugin/charts/echarts',
+                component: 'view.demo_plugin_charts_echarts',
+                meta: {
+                  title: 'demo_plugin_charts_echarts',
+                  i18nKey: 'route.demo_plugin_charts_echarts'
+                }
+              }
+            ]
+          },
+          {
+            name: 'demo_plugin_copy',
+            path: '/demo/plugin/copy',
+            component: 'view.demo_plugin_copy',
+            meta: {
+              title: 'demo_plugin_copy',
+              i18nKey: 'route.demo_plugin_copy'
+            }
+          },
+          {
+            name: 'demo_plugin_editor',
+            path: '/demo/plugin/editor',
+            meta: {
+              title: 'demo_plugin_editor',
+              i18nKey: 'route.demo_plugin_editor'
+            },
+            children: [
+              {
+                name: 'demo_plugin_editor_markdown',
+                path: '/demo/plugin/editor/markdown',
+                component: 'view.demo_plugin_editor_markdown',
+                meta: {
+                  title: 'demo_plugin_editor_markdown',
+                  i18nKey: 'route.demo_plugin_editor_markdown'
+                }
+              },
+              {
+                name: 'demo_plugin_editor_quill',
+                path: '/demo/plugin/editor/quill',
+                component: 'view.demo_plugin_editor_quill',
+                meta: {
+                  title: 'demo_plugin_editor_quill',
+                  i18nKey: 'route.demo_plugin_editor_quill'
+                }
+              }
+            ]
+          },
+          {
+            name: 'demo_plugin_excel',
+            path: '/demo/plugin/excel',
+            component: 'view.demo_plugin_excel',
+            meta: {
+              title: 'demo_plugin_excel',
+              i18nKey: 'route.demo_plugin_excel'
+            }
+          },
+          {
+            name: 'demo_plugin_gantt',
+            path: '/demo/plugin/gantt',
+            component: 'view.demo_plugin_gantt',
+            meta: {
+              title: 'demo_plugin_gantt',
+              i18nKey: 'route.demo_plugin_gantt'
+            }
+          },
+          {
+            name: 'demo_plugin_icon',
+            path: '/demo/plugin/icon',
+            component: 'view.demo_plugin_icon',
+            meta: {
+              title: 'demo_plugin_icon',
+              i18nKey: 'route.demo_plugin_icon'
+            }
+          },
+          {
+            name: 'demo_plugin_map',
+            path: '/demo/plugin/map',
+            component: 'view.demo_plugin_map',
+            meta: {
+              title: 'demo_plugin_map',
+              i18nKey: 'route.demo_plugin_map'
+            }
+          },
+          {
+            name: 'demo_plugin_pdf',
+            path: '/demo/plugin/pdf',
+            component: 'view.demo_plugin_pdf',
+            meta: {
+              title: 'demo_plugin_pdf',
+              i18nKey: 'route.demo_plugin_pdf'
+            }
+          },
+          {
+            name: 'demo_plugin_pinyin',
+            path: '/demo/plugin/pinyin',
+            component: 'view.demo_plugin_pinyin',
+            meta: {
+              title: 'demo_plugin_pinyin',
+              i18nKey: 'route.demo_plugin_pinyin'
+            }
+          },
+          {
+            name: 'demo_plugin_print',
+            path: '/demo/plugin/print',
+            component: 'view.demo_plugin_print',
+            meta: {
+              title: 'demo_plugin_print',
+              i18nKey: 'route.demo_plugin_print'
+            }
+          },
+          {
+            name: 'demo_plugin_swiper',
+            path: '/demo/plugin/swiper',
+            component: 'view.demo_plugin_swiper',
+            meta: {
+              title: 'demo_plugin_swiper',
+              i18nKey: 'route.demo_plugin_swiper'
+            }
+          },
+          {
+            name: 'demo_plugin_typeit',
+            path: '/demo/plugin/typeit',
+            component: 'view.demo_plugin_typeit',
+            meta: {
+              title: 'demo_plugin_typeit',
+              i18nKey: 'route.demo_plugin_typeit'
+            }
+          },
+          {
+            name: 'demo_plugin_video',
+            path: '/demo/plugin/video',
+            component: 'view.demo_plugin_video',
+            meta: {
+              title: 'demo_plugin_video',
+              i18nKey: 'route.demo_plugin_video'
+            }
+          }
+        ]
       }
     ]
   },
@@ -301,256 +508,6 @@ export const generatedRoutes: GeneratedRoute[] = [
           i18nKey: 'route.manage_user-detail',
           hideInMenu: true,
           activeMenu: 'manage_user'
-        }
-      }
-    ]
-  },
-  {
-    name: 'multi-menu',
-    path: '/multi-menu',
-    component: 'layout.base',
-    meta: {
-      title: 'multi-menu',
-      i18nKey: 'route.multi-menu',
-      order: 8,
-      module: 'Demo'
-    },
-    children: [
-      {
-        name: 'multi-menu_first',
-        path: '/multi-menu/first',
-        meta: {
-          title: 'multi-menu_first',
-          i18nKey: 'route.multi-menu_first',
-          order: 1
-        },
-        children: [
-          {
-            name: 'multi-menu_first_child',
-            path: '/multi-menu/first/child',
-            component: 'view.multi-menu_first_child',
-            meta: {
-              title: 'multi-menu_first_child',
-              i18nKey: 'route.multi-menu_first_child'
-            }
-          }
-        ]
-      },
-      {
-        name: 'multi-menu_second',
-        path: '/multi-menu/second',
-        meta: {
-          title: 'multi-menu_second',
-          i18nKey: 'route.multi-menu_second',
-          order: 2
-        },
-        children: [
-          {
-            name: 'multi-menu_second_child',
-            path: '/multi-menu/second/child',
-            meta: {
-              title: 'multi-menu_second_child',
-              i18nKey: 'route.multi-menu_second_child'
-            },
-            children: [
-              {
-                name: 'multi-menu_second_child_home',
-                path: '/multi-menu/second/child/home',
-                component: 'view.multi-menu_second_child_home',
-                meta: {
-                  title: 'multi-menu_second_child_home',
-                  i18nKey: 'route.multi-menu_second_child_home'
-                }
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  },
-  {
-    name: 'plugin',
-    path: '/plugin',
-    component: 'layout.base',
-    meta: {
-      title: '插件示例',
-      i18nKey: 'route.plugin',
-      order: 7,
-      icon: 'clarity:plugin-line',
-      module: 'Demo'
-    },
-    children: [
-      {
-        name: 'plugin_barcode',
-        path: '/plugin/barcode',
-        component: 'view.plugin_barcode',
-        meta: {
-          title: 'plugin_barcode',
-          i18nKey: 'route.plugin_barcode',
-          icon: 'ic:round-barcode'
-        }
-      },
-      {
-        name: 'plugin_charts',
-        path: '/plugin/charts',
-        meta: {
-          title: 'plugin_charts',
-          i18nKey: 'route.plugin_charts',
-          icon: 'mdi:chart-areaspline'
-        },
-        children: [
-          {
-            name: 'plugin_charts_echarts',
-            path: '/plugin/charts/echarts',
-            component: 'view.plugin_charts_echarts',
-            meta: {
-              title: 'plugin_charts_echarts',
-              i18nKey: 'route.plugin_charts_echarts',
-              icon: 'simple-icons:apacheecharts'
-            }
-          }
-        ]
-      },
-      {
-        name: 'plugin_copy',
-        path: '/plugin/copy',
-        component: 'view.plugin_copy',
-        meta: {
-          title: 'plugin_copy',
-          i18nKey: 'route.plugin_copy',
-          icon: 'mdi:clipboard-outline'
-        }
-      },
-      {
-        name: 'plugin_editor',
-        path: '/plugin/editor',
-        meta: {
-          title: 'plugin_editor',
-          i18nKey: 'route.plugin_editor',
-          icon: 'icon-park-outline:editor'
-        },
-        children: [
-          {
-            name: 'plugin_editor_markdown',
-            path: '/plugin/editor/markdown',
-            component: 'view.plugin_editor_markdown',
-            meta: {
-              title: 'plugin_editor_markdown',
-              i18nKey: 'route.plugin_editor_markdown',
-              icon: 'ri:markdown-line'
-            }
-          },
-          {
-            name: 'plugin_editor_quill',
-            path: '/plugin/editor/quill',
-            component: 'view.plugin_editor_quill',
-            meta: {
-              title: 'plugin_editor_quill',
-              i18nKey: 'route.plugin_editor_quill',
-              icon: 'mdi:file-document-edit-outline'
-            }
-          }
-        ]
-      },
-      {
-        name: 'plugin_excel',
-        path: '/plugin/excel',
-        component: 'view.plugin_excel',
-        meta: {
-          title: 'plugin_excel',
-          i18nKey: 'route.plugin_excel',
-          icon: 'ri:file-excel-2-line',
-          keepAlive: true
-        }
-      },
-      {
-        name: 'plugin_gantt',
-        path: '/plugin/gantt',
-        component: 'view.plugin_gantt',
-        meta: {
-          title: 'plugin_gantt',
-          i18nKey: 'route.plugin_gantt',
-          icon: 'ant-design:bar-chart-outlined'
-        }
-      },
-      {
-        name: 'plugin_icon',
-        path: '/plugin/icon',
-        component: 'view.plugin_icon',
-        meta: {
-          title: 'plugin_icon',
-          i18nKey: 'route.plugin_icon',
-          localIcon: 'custom-icon'
-        }
-      },
-      {
-        name: 'plugin_map',
-        path: '/plugin/map',
-        component: 'view.plugin_map',
-        meta: {
-          title: 'plugin_map',
-          i18nKey: 'route.plugin_map',
-          icon: 'mdi:map'
-        }
-      },
-      {
-        name: 'plugin_pdf',
-        path: '/plugin/pdf',
-        component: 'view.plugin_pdf',
-        meta: {
-          title: 'plugin_pdf',
-          i18nKey: 'route.plugin_pdf',
-          icon: 'uiw:file-pdf'
-        }
-      },
-      {
-        name: 'plugin_pinyin',
-        path: '/plugin/pinyin',
-        component: 'view.plugin_pinyin',
-        meta: {
-          title: 'plugin_pinyin',
-          i18nKey: 'route.plugin_pinyin',
-          icon: 'entypo-social:google-hangouts'
-        }
-      },
-      {
-        name: 'plugin_print',
-        path: '/plugin/print',
-        component: 'view.plugin_print',
-        meta: {
-          title: 'plugin_print',
-          i18nKey: 'route.plugin_print',
-          icon: 'mdi:printer'
-        }
-      },
-      {
-        name: 'plugin_swiper',
-        path: '/plugin/swiper',
-        component: 'view.plugin_swiper',
-        meta: {
-          title: 'plugin_swiper',
-          i18nKey: 'route.plugin_swiper',
-          icon: 'simple-icons:swiper'
-        }
-      },
-      {
-        name: 'plugin_typeit',
-        path: '/plugin/typeit',
-        component: 'view.plugin_typeit',
-        meta: {
-          title: 'plugin_typeit',
-          i18nKey: 'route.plugin_typeit',
-          icon: 'mdi:typewriter'
-        }
-      },
-      {
-        name: 'plugin_video',
-        path: '/plugin/video',
-        component: 'view.plugin_video',
-        meta: {
-          title: 'plugin_video',
-          i18nKey: 'route.plugin_video',
-          icon: 'mdi:video'
         }
       }
     ]
